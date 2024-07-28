@@ -9,42 +9,42 @@
                 <div class="col-md-12">
 
                     <!-- general form elements -->
-                    <form action="{{ route('supplier.store') }}" method="POST">
+                    <form action="{{ route('customer.store') }}" method="POST">
                         @csrf
                         <div class="card">
                             <div class="card card-primary">
 
                                 <div class="card-header">
-                                    <h3 class="card-title">Form Tambah Supplier</h3>
+                                    <h3 class="card-title">Form Tambah customer</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
 
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Nama Supplier</label>
-                                        <input type="text" class="form-control" id="" name="nama_supplier"
-                                            placeholder="Nama Supplier" required>
+                                        <label for="exampleInputEmail1">Nama Customer</label>
+                                        <input type="text" class="form-control" id="" name="nama_customer"
+                                            placeholder="Nama customer" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Alamat Supplier</label>
-                                        <input type="text" class="form-control" id="" name="alamat_supplier"
-                                            placeholder="Alamat Supplier" required>
+                                        <label for="exampleInputPassword1">Alamat Customer</label>
+                                        <input type="text" class="form-control" id="" name="alamat_customer"
+                                            placeholder="Alamat customer" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Kota Supplier</label>
-                                        <input type="text" class="form-control" id="" name="kota_supplier"
-                                            placeholder="Kota Supplier" required>
+                                        <label for="exampleInputPassword1">Kota Customer</label>
+                                        <input type="text" class="form-control" id="" name="kota_customer"
+                                            placeholder="Kota customer" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Email Supplier</label>
-                                        <input type="email" class="form-control" id="" name="email_supplier"
-                                            placeholder="Email Supplier" required>
+                                        <label for="exampleInputPassword1">Email Customer</label>
+                                        <input type="email" class="form-control" id="" name="email_customer"
+                                            placeholder="Email customer" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">nohp Supplier</label>
-                                        <input type="text" class="form-control" id="nohp" name="nohp_supplier"
-                                            placeholder="No Hp Supplier" required>
+                                        <label for="exampleInputPassword1">nohp Customer</label>
+                                        <input type="text" class="form-control" id="nohp" name="nohp_customer"
+                                            placeholder="No Hp customer" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -66,63 +66,55 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nama Supplier</th>
-                                        <th>Alamat Supplier</th>
-                                        <th>Kota Supplier</th>
-                                        <th>Email Supplier</th>
-                                        <th>No HP Supplier</th>
+                                        <th>Nama Customer</th>
+                                        <th>Alamat Customer</th>
+                                        <th>Kota Customer</th>
+                                        <th>Email Customer</th>
+                                        <th>No HP Customer</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($supplier as $data)
+                                    @foreach ($customer as $data)
                                         <tr>
-                                            <td>{{ $data->nama_supplier }}</td>
-                                            <td>{{ $data->alamat_supplier }}</td>
-                                            <td>{{ $data->kota_supplier }}</td>
-                                            <td>{{ $data->email_supplier }}</td>
-                                            <td>{{ $data->nohp_supplier }}</td>
+                                            <td>{{ $data->nama_customer }}</td>
+                                            <td>{{ $data->alamat_customer }}</td>
+                                            <td>{{ $data->kota_customer }}</td>
+                                            <td>{{ $data->email_customer }}</td>
+                                            <td>{{ $data->nohp_customer }}</td>
                                             <td style="width: 180px">
                                                 <button type="button" class="btn btn-success" data-toggle="modal"
                                                     data-target="#update" id="tombolubah" data-id="{{ $data->id }}"
-                                                    data-nama="{{ $data->nama_supplier }}"
-                                                    data-alamat="{{ $data->alamat_supplier }}"
-                                                    data-kota="{{ $data->kota_supplier }}"
-                                                    data-email="{{ $data->email_supplier }}"
-                                                    data-nohp="{{ $data->nohp_supplier }}">
+                                                    data-nama="{{ $data->nama_customer }}"
+                                                    data-alamat="{{ $data->alamat_customer }}"
+                                                    data-kota="{{ $data->kota_customer }}"
+                                                    data-email="{{ $data->email_customer }}"
+                                                    data-nohp="{{ $data->nohp_customer }}">
                                                     Update
                                                 </button>
-                                                <a href="{{ route('supplier.destroy', $data->id) }}" class="btn btn-danger" data-confirm-delete="true">Delete</a>
-                                                {{-- <button class=" btn btn-success" style="color: white;" id="tombolubah"
-                                                    data-toggle="modal" data-target="#update" data-id="<?= $id ?>"
-                                                    data-nama="<?= $nama ?>" data-alamat="<?= $alamat ?>"
-                                                    data-kota="<?= $kota ?>" data-nohp="<?= $nohp ?>"
-                                                    data-email="<?= $email ?>">Update</button> --}}
+                                                <a href="{{ route('customer.destroy', $data->id) }}" class="btn btn-danger" data-confirm-delete="true">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
-
-
-
 
                                     <div class="modal fade" id="update">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Modal Update Supplier</h4>
+                                                    <h4 class="modal-title">Modal Update Customer</h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="{{ route('supplier.ubah') }}" method="POST">
+                                                <form action="{{ route('customer.ubah') }}" method="POST">
                                                     @csrf
                                                     <div class="modal-body">
                                                         <div class="card">
                                                             <div class="card card-primary">
                                                                 <div class="card-header">
-                                                                    <h3 class="card-title">Form Update Supplier</h3>
+                                                                    <h3 class="card-title">Form Update Customer</h3>
                                                                 </div>
                                                                 <!-- /.card-header -->
                                                                 <!-- form start -->
@@ -131,33 +123,33 @@
                                                                     <input type="hidden" id="id" name="id">
                                                                     <div class="form-group">
                                                                         <label for="exampleInputEmail1">Nama
-                                                                            Supplier</label>
+                                                                            Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nama" name="nama_supplier" placeholder="Enter email">
+                                                                            id="nama" name="nama_customer" placeholder="Enter email">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Alamat
-                                                                            Supplier</label>
+                                                                            Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="alamat" name="alamat_supplier" placeholder="Alamat Supplier">
+                                                                            id="alamat" name="alamat_customer" placeholder="Alamat customer">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Kota
-                                                                            Supplier</label>
+                                                                            Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="kota" name="kota_supplier" placeholder="Kota Supplier">
+                                                                            id="kota" name="kota_customer" placeholder="Kota customer">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Email
-                                                                            Supplier</label>
+                                                                            Customer</label>
                                                                         <input type="email" class="form-control"
-                                                                            id="email" name="email_supplier" placeholder="Email Supplier">
+                                                                            id="email" name="email_customer" placeholder="Email customer">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">nohp
-                                                                            Supplier</label>
+                                                                        <label for="exampleInputPassword1">No hp
+                                                                            Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nohp" name="nohp_supplier" placeholder="No Hp Supplier">
+                                                                            id="nohp" name="nohp_customer" placeholder="No Hp customer">
                                                                     </div>
                                                                 </div>
 
@@ -177,15 +169,14 @@
                                     </div>
                                     <!-- /.modal -->
 
-
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Nama Supplier</th>
-                                        <th>Alamat Supplier</th>
-                                        <th>Kota Supplier</th>
-                                        <th>Email Supplier</th>
-                                        <th>No HP Supplier</th>
+                                        <th>Nama Customer</th>
+                                        <th>Alamat Customer</th>
+                                        <th>Kota Customer</th>
+                                        <th>Email Customer</th>
+                                        <th>No HP Customer</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>

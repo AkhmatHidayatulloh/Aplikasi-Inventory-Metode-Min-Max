@@ -9,42 +9,42 @@
                 <div class="col-md-12">
 
                     <!-- general form elements -->
-                    <form action="{{ route('supplier.store') }}" method="POST">
+                    <form action="{{ route('barang.store') }}" method="POST">
                         @csrf
                         <div class="card">
                             <div class="card card-primary">
 
                                 <div class="card-header">
-                                    <h3 class="card-title">Form Tambah Supplier</h3>
+                                    <h3 class="card-title">Form Tambah barang</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
 
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Nama Supplier</label>
-                                        <input type="text" class="form-control" id="" name="nama_supplier"
-                                            placeholder="Nama Supplier" required>
+                                        <label for="exampleInputbahan1">Nama barang</label>
+                                        <input type="text" class="form-control" id="" name="nama_barang"
+                                            placeholder="Nama barang" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Alamat Supplier</label>
-                                        <input type="text" class="form-control" id="" name="alamat_supplier"
-                                            placeholder="Alamat Supplier" required>
+                                        <label for="exampleInputPassword1">satuan barang</label>
+                                        <input type="text" class="form-control" id="" name="satuan_barang"
+                                            placeholder="Satuan barang" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Kota Supplier</label>
-                                        <input type="text" class="form-control" id="" name="kota_supplier"
-                                            placeholder="Kota Supplier" required>
+                                        <label for="exampleInputPassword1">ukuran barang</label>
+                                        <input type="text" class="form-control" id="" name="ukuran_barang"
+                                            placeholder="Ukuran barang" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Email Supplier</label>
-                                        <input type="email" class="form-control" id="" name="email_supplier"
-                                            placeholder="Email Supplier" required>
+                                        <label for="exampleInputPassword1">bahan barang</label>
+                                        <input type="bahan" class="form-control" id="" name="bahan_barang"
+                                            placeholder="Bahan barang" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">nohp Supplier</label>
-                                        <input type="text" class="form-control" id="nohp" name="nohp_supplier"
-                                            placeholder="No Hp Supplier" required>
+                                        <label for="exampleInputPassword1">stok barang</label>
+                                        <input type="text" class="form-control" id="stok" name="stok_barang"
+                                            placeholder="Stok barang" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -66,39 +66,35 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nama Supplier</th>
-                                        <th>Alamat Supplier</th>
-                                        <th>Kota Supplier</th>
-                                        <th>Email Supplier</th>
-                                        <th>No HP Supplier</th>
+                                        <th>Nama Barang</th>
+                                        <th>Satuan Barang</th>
+                                        <th>Ukuran Barang</th>
+                                        <th>Bahan Barang</th>
+                                        <th>Stok Barang</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($supplier as $data)
+                                    @foreach ($barang as $data)
                                         <tr>
-                                            <td>{{ $data->nama_supplier }}</td>
-                                            <td>{{ $data->alamat_supplier }}</td>
-                                            <td>{{ $data->kota_supplier }}</td>
-                                            <td>{{ $data->email_supplier }}</td>
-                                            <td>{{ $data->nohp_supplier }}</td>
+                                            <td>{{ $data->nama_barang }}</td>
+                                            <td>{{ $data->satuan_barang }}</td>
+                                            <td>{{ $data->ukuran_barang }}</td>
+                                            <td>{{ $data->bahan_barang }}</td>
+                                            <td>{{ $data->stok_barang }}</td>
                                             <td style="width: 180px">
                                                 <button type="button" class="btn btn-success" data-toggle="modal"
                                                     data-target="#update" id="tombolubah" data-id="{{ $data->id }}"
-                                                    data-nama="{{ $data->nama_supplier }}"
-                                                    data-alamat="{{ $data->alamat_supplier }}"
-                                                    data-kota="{{ $data->kota_supplier }}"
-                                                    data-email="{{ $data->email_supplier }}"
-                                                    data-nohp="{{ $data->nohp_supplier }}">
+                                                    data-nama="{{ $data->nama_barang }}"
+                                                    data-satuan="{{ $data->satuan_barang }}"
+                                                    data-ukuran="{{ $data->ukuran_barang }}"
+                                                    data-bahan="{{ $data->bahan_barang }}"
+                                                    data-stok="{{ $data->stok_barang }}">
                                                     Update
                                                 </button>
-                                                <a href="{{ route('supplier.destroy', $data->id) }}" class="btn btn-danger" data-confirm-delete="true">Delete</a>
-                                                {{-- <button class=" btn btn-success" style="color: white;" id="tombolubah"
-                                                    data-toggle="modal" data-target="#update" data-id="<?= $id ?>"
-                                                    data-nama="<?= $nama ?>" data-alamat="<?= $alamat ?>"
-                                                    data-kota="<?= $kota ?>" data-nohp="<?= $nohp ?>"
-                                                    data-email="<?= $email ?>">Update</button> --}}
+                                                <a href="{{ route('barang.destroy', $data->id) }}" class="btn btn-danger" data-confirm-delete="true">Delete</a>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -110,19 +106,19 @@
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Modal Update Supplier</h4>
+                                                    <h4 class="modal-title">Modal Update barang</h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="{{ route('supplier.ubah') }}" method="POST">
+                                                <form action="{{ route('barang.ubah') }}" method="POST">
                                                     @csrf
                                                     <div class="modal-body">
                                                         <div class="card">
                                                             <div class="card card-primary">
                                                                 <div class="card-header">
-                                                                    <h3 class="card-title">Form Update Supplier</h3>
+                                                                    <h3 class="card-title">Form Update barang</h3>
                                                                 </div>
                                                                 <!-- /.card-header -->
                                                                 <!-- form start -->
@@ -130,34 +126,34 @@
                                                                 <div class="card-body">
                                                                     <input type="hidden" id="id" name="id">
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Nama
-                                                                            Supplier</label>
+                                                                        <label for="exampleInputbahan1">Nama
+                                                                            barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nama" name="nama_supplier" placeholder="Enter email">
+                                                                            id="nama" name="nama_barang" placeholder="Nama bahan">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Alamat
-                                                                            Supplier</label>
+                                                                        <label for="exampleInputPassword1">satuan
+                                                                            barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="alamat" name="alamat_supplier" placeholder="Alamat Supplier">
+                                                                            id="satuan" name="satuan_barang" placeholder="Satuan barang">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Kota
-                                                                            Supplier</label>
+                                                                        <label for="exampleInputPassword1">ukuran
+                                                                            barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="kota" name="kota_supplier" placeholder="Kota Supplier">
+                                                                            id="ukuran" name="ukuran_barang" placeholder="Ukuran barang">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Email
-                                                                            Supplier</label>
-                                                                        <input type="email" class="form-control"
-                                                                            id="email" name="email_supplier" placeholder="Email Supplier">
+                                                                        <label for="exampleInputPassword1">bahan
+                                                                            barang</label>
+                                                                        <input type="bahan" class="form-control"
+                                                                            id="bahan" name="bahan_barang" placeholder="Bahan barang">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">nohp
-                                                                            Supplier</label>
+                                                                        <label for="exampleInputPassword1">stok
+                                                                            barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nohp" name="nohp_supplier" placeholder="No Hp Supplier">
+                                                                            id="stok" name="stok_barang" placeholder="Stok barang">
                                                                     </div>
                                                                 </div>
 
@@ -181,11 +177,11 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Nama Supplier</th>
-                                        <th>Alamat Supplier</th>
-                                        <th>Kota Supplier</th>
-                                        <th>Email Supplier</th>
-                                        <th>No HP Supplier</th>
+                                        <th>Nama Barang</th>
+                                        <th>Satuan Barang</th>
+                                        <th>Ukuran Barang</th>
+                                        <th>Bahan Barang</th>
+                                        <th>Stok Barang</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -201,45 +197,47 @@
 
 @section('script')
     <script>
+        
+        $(function() {
+            $('#example2').DataTable();
+        });
+
         $(document).ready(function() {
             // Hanya memperbolehkan input angka dan membatasi maksimal 14 karakter pada input nomor HP
-            $("#nohp").on('input', function() {
+            $("#stok").on('input', function() {
                 this.value = this.value.replace(/[^0-9]/g, '').slice(0, 14);
             });
 
             // Alternatif lain untuk mencegah input non-numeric pada keypress event
-            $("#nohp").on('keypress', function(event) {
+            $("#stok").on('keypress', function(event) {
                 if (!/^[0-9]$/.test(event.key) || $(this).val().length >= 14) {
                     event.preventDefault();
                 }
             });
         });
 
-        $(function() {
-            $('#example2').DataTable();
-        });
         $(document).on("click", "#tombolubah", function() {
 
             let id = $(this).data('id');
             let nama = $(this).data('nama');
-            let alamat = $(this).data('alamat');
-            let kota = $(this).data('kota');
-            let nohp = $(this).data('nohp');
-            let email = $(this).data('email');
+            let satuan = $(this).data('satuan');
+            let ukuran = $(this).data('ukuran');
+            let stok = $(this).data('stok');
+            let bahan = $(this).data('bahan');
 
             $(".modal-body #id").val(id);
             $(".modal-body #nama").val(nama);
-            $(".modal-body #alamat").val(alamat);
-            $(".modal-body #kota").val(kota);
-            $(".modal-body #nohp").val(nohp);
-            $(".modal-body #email").val(email);
+            $(".modal-body #satuan").val(satuan);
+            $(".modal-body #ukuran").val(ukuran);
+            $(".modal-body #stok").val(stok);
+            $(".modal-body #bahan").val(bahan);
 
-            $(".modal-body #nohp").on('input', function() {
+            $(".modal-body #stok").on('input', function() {
                 this.value = this.value.replace(/[^0-9]/g, '').slice(0, 14);
             });
 
             // Alternatif lain untuk mencegah input non-numeric pada keypress event
-            $(".modal-body #nohp").on('keypress', function(event) {
+            $(".modal-body #stok").on('keypress', function(event) {
                 if (!/^[0-9]$/.test(event.key) || $(this).val().length >= 14) {
                     event.preventDefault();
                 }

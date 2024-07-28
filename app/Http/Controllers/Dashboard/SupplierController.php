@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class SupplierController extends Controller
@@ -13,16 +14,18 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        $title = 'Master Supplier'; 
-        // $users = User::latest()->paginate(10);
+        $title = 'Master Supplier';
+        // $supplierdel = Supplier::latest()->paginate(10);
 
-        // $title = 'Delete User!';
-        // $text = "Are you sure you want to delete?";
-        // confirmDelete($title, $text);
+        $judul = 'Delete Supplier!';
+        $text = "Apakah Anda Yakin Mau Menghapus Data Supplier ?";
+        confirmDelete($judul, $text);
+
         // return view('users.index', compact('users'));
+
         $supplier = Supplier::all();
 
-        
+
         return view('dashboard.supplier.index', compact('title', 'supplier'));
     }
 
@@ -30,9 +33,9 @@ class SupplierController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
-        $title = 'Master Supplier'; 
-        return view('dashboard.supplier.create',compact('title'));
+    {
+        // $title = 'Master Supplier';
+        // return view('dashboard.supplier.create', compact('title'));
     }
 
     /**
@@ -40,15 +43,16 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         // $request->validate([
-        //     'nama_supplier' => ['required', 'string', 'max:255'],
-        //     'alamat_supplier' => ['required', 'string', 'max:255'],
-        //     'kota_supplier' => ['required', 'string', 'max:255'],
-        //     'email_supplier' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Supplier::class],
-        //     'nohp_supplier' => ['required', 'adasdasd', 'max:14'],
+        //     'nama_supplier' => 'required|string|max:255',
+        //     'alamat_supplier' => 'required|string|max:255',
+        //     'kota_supplier' => 'required|string|max:255',
+        //     'benohp_supplier' => 'required|numeric|max:14',
+        //     'email_supplier' => 'required|string|lowercase|email|max:255'
         // ]);
 
-  
         $create = Supplier::create([
             'nama_supplier' => $request->nama_supplier,
             'alamat_supplier' => $request->alamat_supplier,
@@ -57,10 +61,10 @@ class SupplierController extends Controller
             'nohp_supplier' => $request->nohp_supplier,
         ]);
 
-        if(!$create){
-            toast('Data Tidak Masuk','danger');
-        }else{
-            toast('Data Berhasil Di Inputkan!','success');
+        if (!$create) {
+            toast('Data Tidak Masuk', 'error');
+        } else {
+            toast('Data Berhasil Di Inputkan!', 'success');
         }
 
         return redirect()->back();
@@ -88,7 +92,23 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // $update = DB::table('suppliers')
+        //     ->where('id', $request->id) // Menggunakan kondisi untuk memilih supplier yang akan diupdate
+        //     ->update([
+        //         'nama_supplier' => $request->nama_supplier,
+        //         'alamat_supplier' => $request->alamat_supplier,
+        //         'kota_supplier' => $request->kota_supplier,
+        //         'email_supplier' => $request->email_supplier,
+        //         'nohp_supplier' => $request->nohp_supplier,
+        //     ]);
+
+        // if (!$update) {
+        //     toast('Data Tidak Masuk', 'danger');
+        // } else {
+        //     toast('Data Berhasil Di Update!', 'success');
+        // }
+
+        // return redirect()->back();
     }
 
     /**
@@ -96,6 +116,41 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
+        $idsupplier = Supplier::find($id);
+
+        $hapus = $idsupplier->delete();
+
+        if($hapus){
+            toast('Data Berhasil Di Hapus', 'success');
+        }else{
+            toast('Data Tidak Terhapus', 'error');
+        }
+
+        return redirect()->back();
+    }
+
+
+    public function ubah(Request $request)
+    {
+        $update = DB::table('suppliers')
+            ->where('id', $request->id) // Menggunakan kondisi untuk memilih supplier yang akan diupdate
+            ->update([
+                'nama_supplier' => $request->nama_supplier,
+                'alamat_supplier' => $request->alamat_supplier,
+                'kota_supplier' => $request->kota_supplier,
+                'email_supplier' => $request->email_supplier,
+                'nohp_supplier' => $request->nohp_supplier,
+            ]);
+
+        if (!$update) {
+            toast('Data Tidak Masuk', 'error');
+            //alert()->question('QuestionAlert','Data Tidak Masuk.');
+        } else {
+            toast('Data Berhasil Di Update!', 'success');
+           // alert()->success('SuccessAlert','Data Berhasil Di Update!');
+        }
+
+        return redirect()->back();
     }
 }

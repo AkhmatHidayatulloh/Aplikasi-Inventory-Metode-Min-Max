@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard\BarangController;
+use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +44,13 @@ Route::group([
         return view('dashboard.pages.dashboard2');
     });
     Route::resource('supplier', 'SupplierController');
+    Route::post('admin/supplier/ubah', [SupplierController::class, 'ubah'])->name('supplier.ubah');
+
+    Route::resource('customer', 'CustomerController');
+    Route::post('admin/customer/ubah', [CustomerController::class, 'ubah'])->name('customer.ubah');
+
+    Route::resource('barang', 'BarangController');
+    Route::post('admin/barang/ubah', [BarangController::class, 'ubah'])->name('barang.ubah');
 });
 
 // Route::group([
