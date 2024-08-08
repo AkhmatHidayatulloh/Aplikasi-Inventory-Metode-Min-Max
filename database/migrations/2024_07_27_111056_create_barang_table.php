@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_barang');
             $table->string('satuan_barang');
-            $table->string('ukuran_barang');
+            $table->double('ukuran_barang');
             $table->string('bahan_barang');
             $table->integer('stok_barang')->default(0);
             $table->timestamps();

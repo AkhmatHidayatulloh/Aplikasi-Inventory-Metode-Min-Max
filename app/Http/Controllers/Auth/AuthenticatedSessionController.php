@@ -33,8 +33,12 @@ class AuthenticatedSessionController extends Controller
         if ($request->user()->role === 'admin' || $request->user()->role === 'keuangan')
         {
             Alert::toast('Hallo Selamat Datang '.$request->user()->name , 'info')->position('top-end')->autoClose(3000);
-            return redirect('admin/dashboard');
-        }else{
+            return redirect()->route('dashboard.index');
+        }elseif($request->user()->role === 'gudang'){
+            Alert::toast('Hallo Selamat Datang '.$request->user()->name , 'info')->position('top-end')->autoClose(3000);
+            return redirect()->route('dashboard.index');
+        }
+        else{
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 

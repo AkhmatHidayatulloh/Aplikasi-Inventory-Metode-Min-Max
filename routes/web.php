@@ -21,9 +21,6 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.pages.dashboard2');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,13 +33,11 @@ require __DIR__.'/auth.php';
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'App\Http\Controllers\Dashboard',
-    'middleware' => ['auth', 'CekRole:admin,keuangan']
+    'middleware' => ['auth', 'CekRole:admin,super visor']
 ], function () {
     // Route
     Route::resource('dashboard', 'DashboardController');
-    Route::get('dashboard2', function () {
-        return view('dashboard.pages.dashboard2');
-    });
+
     Route::resource('supplier', 'SupplierController');
     Route::post('admin/supplier/ubah', [SupplierController::class, 'ubah'])->name('supplier.ubah');
 
@@ -51,6 +46,20 @@ Route::group([
 
     Route::resource('barang', 'BarangController');
     Route::post('admin/barang/ubah', [BarangController::class, 'ubah'])->name('barang.ubah');
+
+    
+});
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'App\Http\Controllers\Dashboard',
+    'middleware' => ['auth', 'CekRole:admin,super visor,gudang']
+], function () {
+    // Route
+    Route::resource('dashboard', 'DashboardController');
+
+    Route::resource('transaksi_masuk', 'TransaksiMasukController');
+    Route::resource('transaksi_keluar', 'TransaksiKeluarController');
 });
 
 // Route::group([

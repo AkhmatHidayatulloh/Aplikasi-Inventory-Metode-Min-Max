@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('jumlah_barang_masuk');
             $table->integer('stok_awal_masuk');
             $table->integer('stok_akhir_masuk');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

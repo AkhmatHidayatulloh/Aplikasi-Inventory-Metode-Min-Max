@@ -10,6 +10,8 @@ class TransaksiBarangKeluar extends Model
     protected $table = "transaksi_barang_keluar";
 
     protected $fillable =[
+        'id_customer',
+        'id_barang',
         'tanggal_keluar',
         'jumlah_barang_keluar',
         'stok_awal_keluar',
