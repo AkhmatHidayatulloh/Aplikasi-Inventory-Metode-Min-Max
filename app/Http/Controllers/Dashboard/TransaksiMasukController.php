@@ -33,6 +33,7 @@ class TransaksiMasukController extends Controller
             'a.stok_akhir_masuk',
             'a.status'
         )
+        ->orderBy('id', 'desc') 
         ->get();
 
         return view('dashboard.transaksi_masuk.index', compact('title', 'supplier', 'barang', 'transaksimasuk'));

@@ -8,6 +8,17 @@
             <div class="row">
                 <div class="col-md-12">
 
+                    {{-- tampilan eror --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <!-- general form elements -->
                     <form action="{{ route('barang.store') }}" method="POST">
                         @csrf
@@ -23,28 +34,28 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputbahan1">Nama barang</label>
-                                        <input type="text" class="form-control" id="" name="nama_barang"
-                                            placeholder="Nama barang" required>
+                                        <input type="text" class="form-control" id="nama" name="nama_barang"
+                                            placeholder="Nama barang" value="{{ old('nama_barang') }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">satuan barang</label>
-                                        <input type="text" class="form-control" id="" name="satuan_barang"
-                                            placeholder="Satuan barang" required>
+                                        <label for="">satuan barang</label>
+                                        <input type="text" class="form-control" id="satuan" name="satuan_barang"
+                                            placeholder="Satuan barang" value="{{ old('satuan_barang') }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">ukuran barang</label>
-                                        <input type="text" class="form-control" id="" name="ukuran_barang"
-                                            placeholder="Ukuran barang" required>
+                                        <label for="">ukuran barang</label>
+                                        <input type="text" class="form-control" id="ukuran" name="ukuran_barang"
+                                            placeholder="Ukuran barang" value="{{ old('ukuran_barang') }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">bahan barang</label>
-                                        <input type="bahan" class="form-control" id="" name="bahan_barang"
-                                            placeholder="Bahan barang" required>
+                                        <label for="">bahan barang</label>
+                                        <input type="text" class="form-control" id="bahan" name="bahan_barang"
+                                            placeholder="Bahan barang" value="{{ old('bahan_barang') }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">stok barang</label>
+                                        <label for="">stok barang</label>
                                         <input type="text" class="form-control" id="stok" name="stok_barang"
-                                            placeholder="Stok barang" required>
+                                            placeholder="Stok barang" value="{{ old('stok_barang') }}" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -93,8 +104,9 @@
                                                     data-stok="{{ $data->stok_barang }}">
                                                     Update
                                                 </button>
-                                                <a href="{{ route('barang.destroy', $data->id) }}" class="btn btn-danger" data-confirm-delete="true">Delete</a>
-                                                
+                                                <a href="{{ route('barang.destroy', $data->id) }}" class="btn btn-danger"
+                                                    data-confirm-delete="true">Delete</a>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -129,31 +141,41 @@
                                                                         <label for="exampleInputbahan1">Nama
                                                                             barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nama" name="nama_barang" placeholder="Nama bahan">
+                                                                            id="nama" name="nama_barang"
+                                                                            placeholder="Nama bahan"
+                                                                            value="{{ old('nama_barang') }}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">satuan
+                                                                        <label for="">satuan
                                                                             barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="satuan" name="satuan_barang" placeholder="Satuan barang">
+                                                                            id="satuan" name="satuan_barang"
+                                                                            placeholder="Satuan barang"
+                                                                            value="{{ old('satuan_barang') }}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">ukuran
+                                                                        <label for="">ukuran
                                                                             barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="ukuran" name="ukuran_barang" placeholder="Ukuran barang">
+                                                                            id="ukuran" name="ukuran_barang"
+                                                                            placeholder="Ukuran barang"
+                                                                            value="{{ old('ukuran_barang') }}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">bahan
+                                                                        <label for="">bahan
                                                                             barang</label>
                                                                         <input type="bahan" class="form-control"
-                                                                            id="bahan" name="bahan_barang" placeholder="Bahan barang">
+                                                                            id="bahan" name="bahan_barang"
+                                                                            placeholder="Bahan barang"
+                                                                            value="{{ old('bahan_barang') }}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputPassword1">stok
+                                                                        <label for="">stok
                                                                             barang</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="stok" name="stok_barang" placeholder="Stok barang">
+                                                                            id="stok" name="stok_barang"
+                                                                            placeholder="Stok barang"
+                                                                            value="{{ old('stok_barang') }}" required>
                                                                     </div>
                                                                 </div>
 
@@ -197,7 +219,6 @@
 
 @section('script')
     <script>
-        
         $(function() {
             $('#example2').DataTable();
         });
@@ -211,6 +232,31 @@
             // Alternatif lain untuk mencegah input non-numeric pada keypress event
             $("#stok").on('keypress', function(event) {
                 if (!/^[0-9]$/.test(event.key) || $(this).val().length >= 14) {
+                    event.preventDefault();
+                }
+            });
+
+            // Allow decimal input and restrict to 14 characters
+            $("#ukuran").on('input', function() {
+                // Replace anything that is not a digit or decimal point, and ensure only one decimal point is allowed
+                this.value = this.value.replace(/[^0-9.]/g, '');
+
+                // Ensure only one decimal point is allowed
+                if (this.value.indexOf('.') != -1) {
+                    this.value = this.value.substring(0, this.value.indexOf('.') + 1) +
+                        this.value.substring(this.value.indexOf('.') + 1).replace(/\./g, '');
+                }
+
+                // Restrict the input to a maximum length of 14 characters
+                this.value = this.value.slice(0, 14);
+            });
+
+            // Alternative to prevent non-numeric input and limit input length
+            $("#ukuran").on('keypress', function(event) {
+                // Allow digits and one decimal point, and ensure length is within 14 characters
+                if (!/^[0-9.]$/.test(event.key) ||
+                    (event.key === '.' && $(this).val().indexOf('.') !== -1) ||
+                    $(this).val().length >= 14) {
                     event.preventDefault();
                 }
             });
@@ -239,6 +285,31 @@
             // Alternatif lain untuk mencegah input non-numeric pada keypress event
             $(".modal-body #stok").on('keypress', function(event) {
                 if (!/^[0-9]$/.test(event.key) || $(this).val().length >= 14) {
+                    event.preventDefault();
+                }
+            });
+
+            // Allow decimal input and restrict to 14 characters
+            $("#ukuran").on('input', function() {
+                // Replace anything that is not a digit or decimal point, and ensure only one decimal point is allowed
+                this.value = this.value.replace(/[^0-9.]/g, '');
+
+                // Ensure only one decimal point is allowed
+                if (this.value.indexOf('.') != -1) {
+                    this.value = this.value.substring(0, this.value.indexOf('.') + 1) +
+                        this.value.substring(this.value.indexOf('.') + 1).replace(/\./g, '');
+                }
+
+                // Restrict the input to a maximum length of 14 characters
+                this.value = this.value.slice(0, 14);
+            });
+
+            // Alternative to prevent non-numeric input and limit input length
+            $("#ukuran").on('keypress', function(event) {
+                // Allow digits and one decimal point, and ensure length is within 14 characters
+                if (!/^[0-9.]$/.test(event.key) ||
+                    (event.key === '.' && $(this).val().indexOf('.') !== -1) ||
+                    $(this).val().length >= 14) {
                     event.preventDefault();
                 }
             });

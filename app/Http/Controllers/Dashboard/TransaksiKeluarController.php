@@ -35,6 +35,7 @@ class TransaksiKeluarController extends Controller
             'a.stok_akhir_keluar',
             'a.status'
         )
+        ->orderBy('id', 'desc') 
         ->get();
 
         return view('dashboard.transaksi_keluar.index', compact('title', 'customer', 'barang', 'transaksikeluar', 'countbarang'));

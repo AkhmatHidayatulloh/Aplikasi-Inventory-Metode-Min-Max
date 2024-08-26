@@ -86,7 +86,7 @@
                                 <div class="form-group">
                                     <label>Pilih Barang</label>
                                     <div class="select2-purple">
-                                        <select name="id_barang" id="barang" data-placeholder="Pilih Barang"
+                                        <select class="form-control" name="id_barang" id="barang" data-placeholder="Pilih Barang"
                                             data-dropdown-css-class="select2-purple" style="width: 100%;">
                                             @foreach ($namabarang as $item)
                                                 <option value="{{ $item->nama_barang }}">{{ $item->nama_barang }}</option>
@@ -184,7 +184,8 @@
                 series: [{
                     name: 'Transaksi Barang Masuk',
                     data: jumlahmasuk
-                }]
+                }],
+                colors: ['#fa02bc']
             });
 
             // Membuat grafik Highcharts
@@ -206,7 +207,8 @@
                 series: [{
                     name: 'Transaksi Barang Keluar',
                     data: jumlahkeluar
-                }]
+                }],
+                colors: ['#00ba44']
             });
 
             // Menambahkan event listener untuk event 'change'
