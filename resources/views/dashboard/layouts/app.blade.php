@@ -81,7 +81,7 @@
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="ml-auto navbar-nav">
                 <!-- Navbar Search -->
 
 
@@ -127,7 +127,7 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
+                    <div class="mb-2 row">
                         <div class="col-sm-6">
                             @hasSection('title')
                                 <h1 class="m-0">@yield('title')</h1>
@@ -239,6 +239,7 @@
     <script src="{{ asset('admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- additional script -->
     @hasSection('script')

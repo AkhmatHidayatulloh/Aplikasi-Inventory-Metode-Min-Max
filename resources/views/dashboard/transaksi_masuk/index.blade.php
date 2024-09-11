@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <!-- general form elements -->
                     <form action="{{ route('transaksi_masuk.store') }}" method="POST">
                         @csrf
@@ -27,8 +27,8 @@
                                     <div class="form-group">
                                         <label>Pilih Supplier</label>
                                         <div class="select2-purple">
-                                            <select class="form-control select2" name="id_supplier"  data-placeholder="Pilih Supplier"
-                                                data-dropdown-css-class="select2-purple" >
+                                            <select class="form-control select2" name="id_supplier"
+                                                data-placeholder="Pilih Supplier" data-dropdown-css-class="select2-purple">
                                                 @foreach ($supplier as $item)
                                                     <option value="{{ $item->id }}">{{ $item->nama_supplier }}</option>
                                                 @endforeach
@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label>Pilih Barang</label>
                                         <div class="select2-purple">
-                                            <select class="select2" name="id_barang"  data-placeholder="Pilih Barang"
+                                            <select class="select2" name="id_barang" data-placeholder="Pilih Barang"
                                                 data-dropdown-css-class="select2-purple" style="width: 100%;">
                                                 @foreach ($barang as $item)
                                                     <option value="{{ $item->id }}">{{ $item->nama_barang }}</option>
@@ -57,9 +57,9 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Tanggal Barang Masuk</label>
                                         <input type="date" class="form-control" id="" name="tanggal_masuk"
-                                            placeholder="Tanggal Barang Masuk" required >
+                                            placeholder="Tanggal Barang Masuk" required>
                                     </div>
-                                    
+
                                 </div>
                                 <!-- /.card-body -->
 
@@ -80,6 +80,7 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>No </th>
                                         <th>Nama Supplier</th>
                                         <th>Nama Barang</th>
                                         <th>Tanggal Masuk</th>
@@ -89,9 +90,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($transaksimasuk as $data)
                                         <tr>
+                                            <td>{{ $no }}</td>
                                             <td>{{ $data->nama_supplier }}</td>
                                             <td>{{ $data->nama_barang }}</td>
                                             <td>{{ $data->tanggal_masuk }}</td>
@@ -99,11 +103,15 @@
                                             <td>{{ $data->stok_awal_masuk }}</td>
                                             <td>{{ $data->stok_akhir_masuk }}</td>
                                         </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
                                     @endforeach
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Supplier</th>
                                         <th>Nama Barang</th>
                                         <th>Tanggal Masuk</th>

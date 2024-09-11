@@ -77,6 +77,7 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>No </th>
                                         <th>Nama Barang</th>
                                         <th>Satuan Barang</th>
                                         <th>Ukuran Barang</th>
@@ -86,9 +87,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($barang as $data)
                                         <tr>
+                                            <td>{{ $no }}</td>
                                             <td>{{ $data->nama_barang }}</td>
                                             <td>{{ $data->satuan_barang }}</td>
                                             <td>{{ $data->ukuran_barang }}</td>
@@ -109,10 +113,10 @@
 
                                             </td>
                                         </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
                                     @endforeach
-
-
-
 
                                     <div class="modal fade" id="update">
                                         <div class="modal-dialog modal-lg">
@@ -199,6 +203,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Barang</th>
                                         <th>Satuan Barang</th>
                                         <th>Ukuran Barang</th>

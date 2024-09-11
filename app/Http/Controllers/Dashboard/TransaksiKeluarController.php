@@ -18,25 +18,25 @@ class TransaksiKeluarController extends Controller
 
         $customer = Customer::all();
 
-        $barang = Barang::where('stok_barang','>', 0)->get();
+        $barang = Barang::where('stok_barang', '>', 0)->get();
 
         $countbarang = Barang::count('id');
 
         $transaksikeluar = DB::table('transaksi_barang_keluar as a')
-        ->join('customers as b', 'a.id_customer', '=', 'b.id')
-        ->join('barang as c', 'a.id_barang', '=', 'c.id')
-        ->select(
-            'a.id',
-            'b.nama_customer',
-            'c.nama_barang',
-            'a.tanggal_keluar',
-            'a.jumlah_barang_keluar',
-            'a.stok_awal_keluar',
-            'a.stok_akhir_keluar',
-            'a.status'
-        )
-        ->orderBy('id', 'desc') 
-        ->get();
+            ->join('customers as b', 'a.id_customer', '=', 'b.id')
+            ->join('barang as c', 'a.id_barang', '=', 'c.id')
+            ->select(
+                'a.id',
+                'b.nama_customer',
+                'c.nama_barang',
+                'a.tanggal_keluar',
+                'a.jumlah_barang_keluar',
+                'a.stok_awal_keluar',
+                'a.stok_akhir_keluar',
+                'a.status'
+            )
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('dashboard.transaksi_keluar.index', compact('title', 'customer', 'barang', 'transaksikeluar', 'countbarang'));
     }
@@ -58,8 +58,9 @@ class TransaksiKeluarController extends Controller
             'id_barang' => $request->id_barang,
             'tanggal_keluar' => $request->tanggal_keluar,
             'jumlah_barang_keluar' => $request->jumlah_keluar,
-            'stok_awal_keluar' => $stokbarang,
-            'stok_akhir_keluar' => $stokakhir,
+            'stok_awal_keluar' => 0,
+            'stok_akhir_keluar' => 0,
+
         ]);
 
         if (!$create) {
@@ -67,7 +68,7 @@ class TransaksiKeluarController extends Controller
         } else {
             toast('Data Berhasil Di Inputkan!', 'success');
 
-            Barang::where('id', $request->id_barang)->update(['stok_barang' => $stokakhir]);
+            // Barang::where('id', $request->id_barang)->update(['stok_barang' => $stokakhir]);
         }
 
         return redirect()->back();

@@ -66,6 +66,7 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Customer</th>
                                         <th>Alamat Customer</th>
                                         <th>Kota Customer</th>
@@ -75,9 +76,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($customer as $data)
                                         <tr>
+                                            <td>{{ $no }}</td>
                                             <td>{{ $data->nama_customer }}</td>
                                             <td>{{ $data->alamat_customer }}</td>
                                             <td>{{ $data->kota_customer }}</td>
@@ -93,9 +97,13 @@
                                                     data-nohp="{{ $data->nohp_customer }}">
                                                     Update
                                                 </button>
-                                                <a href="{{ route('customer.destroy', $data->id) }}" class="btn btn-danger" data-confirm-delete="true">Delete</a>
+                                                <a href="{{ route('customer.destroy', $data->id) }}" class="btn btn-danger"
+                                                    data-confirm-delete="true">Delete</a>
                                             </td>
                                         </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
                                     @endforeach
 
                                     <div class="modal fade" id="update">
@@ -125,31 +133,36 @@
                                                                         <label for="exampleInputEmail1">Nama
                                                                             Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nama" name="nama_customer" placeholder="Enter email">
+                                                                            id="nama" name="nama_customer"
+                                                                            placeholder="Enter email">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Alamat
                                                                             Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="alamat" name="alamat_customer" placeholder="Alamat customer">
+                                                                            id="alamat" name="alamat_customer"
+                                                                            placeholder="Alamat customer">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Kota
                                                                             Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="kota" name="kota_customer" placeholder="Kota customer">
+                                                                            id="kota" name="kota_customer"
+                                                                            placeholder="Kota customer">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Email
                                                                             Customer</label>
                                                                         <input type="email" class="form-control"
-                                                                            id="email" name="email_customer" placeholder="Email customer">
+                                                                            id="email" name="email_customer"
+                                                                            placeholder="Email customer">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">No hp
                                                                             Customer</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nohp" name="nohp_customer" placeholder="No Hp customer">
+                                                                            id="nohp" name="nohp_customer"
+                                                                            placeholder="No Hp customer">
                                                                     </div>
                                                                 </div>
 
@@ -172,6 +185,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Customer</th>
                                         <th>Alamat Customer</th>
                                         <th>Kota Customer</th>

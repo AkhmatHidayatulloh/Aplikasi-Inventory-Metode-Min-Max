@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-
+                    {{--
                     <div class="row">
                         <div class="col-lg-3 col-12">
                             <!-- small box -->
@@ -26,72 +26,11 @@
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-                    </div>
-                    <!-- general form elements -->
-                    <form action="{{ route('transaksi_keluar.store') }}" method="POST">
-                        @csrf
-                        <div class="card">
-                            <div class="card card-primary">
-
-                                <div class="card-header">
-                                    <h3 class="card-title">Form Produk keluar</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
-
-                                <div class="card-body">
-
-                                    <div class="form-group">
-                                        <label>Pilih Customer</label>
-                                        <div class="select2-purple">
-                                            <select class="form-control select2" name="id_customer"
-                                                data-placeholder="Pilih Customer" data-dropdown-css-class="select2-purple">
-                                                @foreach ($customer as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama_customer }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Pilih Barang</label>
-                                        <div class="select2-purple">
-                                            <select class="select2" name="id_barang" id="barang"
-                                                data-placeholder="Pilih Barang" data-dropdown-css-class="select2-purple"
-                                                style="width: 100%;">
-                                                @foreach ($barang as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama_barang }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Jumlah Brang keluar</label>
-                                        <input type="number" class="form-control" min="0" name="jumlah_keluar"
-                                            placeholder="Jumlah Brang keluar" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Tanggal Barang keluar</label>
-                                        <input type="date" class="form-control" id="" name="tanggal_keluar"
-                                            placeholder="Tanggal Barang keluar" required>
-                                    </div>
-
-                                </div>
-                                <!-- /.card-body -->
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </form>
+                    </div> --}}
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Transaksi Keluar</h3>
+                            <h3 class="card-title">Verifikasi Transaksi Keluar</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -106,6 +45,7 @@
                                         <th>Stok Awal Keluar</th>
                                         <th>Stok Akhir Keluar</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -134,6 +74,25 @@
                                                     <small class="badge badge-warning">{{ $data->status }}</small>
                                                 </td>
                                             @endif
+
+                                            <td>
+                                                <button type="button" id="tombolverif" class="btn btn-success"
+                                                    data-toggle="modal" data-target="#modalVerif"
+                                                    data-id='{{ $data->id }}'
+                                                    data-jumlah='{{ $data->jumlah_barang_keluar }}'
+                                                    @if ($data->status == 'berhasil' || $data->status == 'ditolak') {{ 'disabled' }}
+                                                    @else {{ '' }} @endif>
+                                                    Verifikasi
+                                                </button>
+
+                                                <button type="button" id="tomboltolak" class="btn btn-danger"
+                                                    data-toggle="modal" data-target="#modalTolak"
+                                                    data-id='{{ $data->id }}'
+                                                    @if ($data->status == 'berhasil' || $data->status == 'ditolak') {{ 'disabled' }}
+                                                    @else {{ '' }} @endif>
+                                                    Tolak
+                                                </button>
+                                            </td>
                                         </tr>
                                         @php
                                             $no++;
@@ -151,6 +110,7 @@
                                         <th>Stok Awal Keluar</th>
                                         <th>Stok Akhir Keluar</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -161,6 +121,59 @@
                 </div>
             </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalVerif" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal Verifikasi Pemintaan Barang Keluar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('verif.update') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <p>Apakah Anda Yakin Untuk Verifikasi Transaksi Barang Keluar</p>
+                        <input type="hidden" id="id" name="id">
+                        <input type="hidden" id="jumlah_keluar" name="jumlah_keluar">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Verifikasi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalTolak" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal Tolak Pemintaan Barang Keluar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('verif.tolak') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <p>Apakah Anda Yakin Untuk Menolak Transaksi Barang Keluar</p>
+                        <input type="hidden" id="id" name="id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Tolak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -168,34 +181,47 @@
         $(function() {
             $('#example2').DataTable();
 
-            $('.select2').select2();
+            // $('.select2').select2();
+
+        });
+
+        $(document).on("click", "#tombolverif", function() {
+            let id = $(this).data('id');
+            let jumlah = $(this).data('jumlah');
+
+            $("#modalVerif .modal-body #id").val(id);
+            $(".modal-body #jumlah_keluar").val(jumlah);
+        });
+
+        $(document).on("click", "#tomboltolak", function() {
+            let id = $(this).data('id');
+            $("#modalTolak .modal-body #id").val(id);
 
         });
 
 
 
-        $(document).ready(function() {
-            // Inisialisasi Select2
-            $('#barang').select2({
-                placeholder: "Pilih sebuah opsi",
-                allowClear: true
-            });
+        // $(document).ready(function() {
+        //     // Inisialisasi Select2
+        //     $('#barang').select2({
+        //         placeholder: "Pilih sebuah opsi",
+        //         allowClear: true
+        //     });
 
-            const dataBarang = @json($barang);
 
-            // Event listener untuk perubahan nilai
-            $('#barang').on('change', function() {
-                var selectedValue = $(this).val();
+        //     // Event listener untuk perubahan nilai
+        //     $('#barang').on('change', function() {
+        //         var selectedValue = $(this).val();
 
-                const selectedData = dataBarang.filter(item => item.id === parseInt(selectedValue));
+        //         const selectedData = dataBarang.filter(item => item.id === parseInt(selectedValue));
 
-                bulan = [...new Set(selectedData.map(item => item.bulan))];
-                const nama_barang = [...new Set(selectedData.map(item => item.nama_barang))];
-                const stok = [...new Set(selectedData.map(item => item.stok_barang))];
-                document.getElementById("jumlah_barang").textContent = stok;
-                document.getElementById("nama_barang").textContent = 'Jumlah Stok Barang ' + nama_barang;
-            });
-        });
+        //         bulan = [...new Set(selectedData.map(item => item.bulan))];
+        //         const nama_barang = [...new Set(selectedData.map(item => item.nama_barang))];
+        //         const stok = [...new Set(selectedData.map(item => item.stok_barang))];
+        //         document.getElementById("jumlah_barang").textContent = stok;
+        //         document.getElementById("nama_barang").textContent = 'Jumlah Stok Barang ' + nama_barang;
+        //     });
+        // });
 
 
         // //Initialize Select2 Elements

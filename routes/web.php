@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Dashboard\BarangController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SupplierController;
+use App\Http\Controllers\Dashboard\VerifPermintaanMasukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ Route::get('/', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::group([
     'prefix' => 'admin',
@@ -47,7 +48,9 @@ Route::group([
     Route::resource('barang', 'BarangController');
     Route::post('admin/barang/ubah', [BarangController::class, 'ubah'])->name('barang.ubah');
 
-    
+    Route::get('verif-permintaan-keluar', [VerifPermintaanMasukController::class, 'index'])->name('verif-masuk');
+    Route::post('verif-permintaan-keluar/verif', [VerifPermintaanMasukController::class, 'verif'])->name('verif.update');
+    Route::post('verif-permintaan-keluar/tolak', [VerifPermintaanMasukController::class, 'tolak'])->name('verif.tolak');
 });
 
 Route::group([

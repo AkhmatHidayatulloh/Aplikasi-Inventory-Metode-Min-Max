@@ -18,7 +18,7 @@ class BarangController extends Controller
         $text = "Apakah Anda Yakin Mau Menghapus Data Barang ?";
         confirmDelete($judul, $text);
 
-        $barang = Barang::orderBy('id', 'asc')->get();
+        $barang = Barang::orderBy('id', 'desc')->get();
 
         return view('dashboard.barang.index', compact('title', 'barang'));
     }

@@ -66,6 +66,7 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Supplier</th>
                                         <th>Alamat Supplier</th>
                                         <th>Kota Supplier</th>
@@ -75,9 +76,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($supplier as $data)
                                         <tr>
+                                            <td>{{ $no }}</td>
                                             <td>{{ $data->nama_supplier }}</td>
                                             <td>{{ $data->alamat_supplier }}</td>
                                             <td>{{ $data->kota_supplier }}</td>
@@ -93,14 +97,13 @@
                                                     data-nohp="{{ $data->nohp_supplier }}">
                                                     Update
                                                 </button>
-                                                <a href="{{ route('supplier.destroy', $data->id) }}" class="btn btn-danger" data-confirm-delete="true">Delete</a>
-                                                {{-- <button class=" btn btn-success" style="color: white;" id="tombolubah"
-                                                    data-toggle="modal" data-target="#update" data-id="<?= $id ?>"
-                                                    data-nama="<?= $nama ?>" data-alamat="<?= $alamat ?>"
-                                                    data-kota="<?= $kota ?>" data-nohp="<?= $nohp ?>"
-                                                    data-email="<?= $email ?>">Update</button> --}}
+                                                <a href="{{ route('supplier.destroy', $data->id) }}" class="btn btn-danger"
+                                                    data-confirm-delete="true">Delete</a>
                                             </td>
                                         </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
                                     @endforeach
 
 
@@ -133,31 +136,36 @@
                                                                         <label for="exampleInputEmail1">Nama
                                                                             Supplier</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nama" name="nama_supplier" placeholder="Enter email">
+                                                                            id="nama" name="nama_supplier"
+                                                                            placeholder="Enter email">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Alamat
                                                                             Supplier</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="alamat" name="alamat_supplier" placeholder="Alamat Supplier">
+                                                                            id="alamat" name="alamat_supplier"
+                                                                            placeholder="Alamat Supplier">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Kota
                                                                             Supplier</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="kota" name="kota_supplier" placeholder="Kota Supplier">
+                                                                            id="kota" name="kota_supplier"
+                                                                            placeholder="Kota Supplier">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">Email
                                                                             Supplier</label>
                                                                         <input type="email" class="form-control"
-                                                                            id="email" name="email_supplier" placeholder="Email Supplier">
+                                                                            id="email" name="email_supplier"
+                                                                            placeholder="Email Supplier">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="exampleInputPassword1">nohp
                                                                             Supplier</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="nohp" name="nohp_supplier" placeholder="No Hp Supplier">
+                                                                            id="nohp" name="nohp_supplier"
+                                                                            placeholder="No Hp Supplier">
                                                                     </div>
                                                                 </div>
 
@@ -181,6 +189,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Supplier</th>
                                         <th>Alamat Supplier</th>
                                         <th>Kota Supplier</th>
