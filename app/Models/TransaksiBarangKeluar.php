@@ -9,7 +9,7 @@ class TransaksiBarangKeluar extends Model
 {
     protected $table = "transaksi_barang_keluar";
 
-    protected $fillable =[
+    protected $fillable = [
         'id_customer',
         'id_barang',
         'tanggal_keluar',
@@ -20,4 +20,8 @@ class TransaksiBarangKeluar extends Model
     ];
 
     use HasFactory;
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
 }

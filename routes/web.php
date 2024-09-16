@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Dashboard\BarangController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SupplierController;
+use App\Http\Controllers\Dashboard\PerhitunganController;
 use App\Http\Controllers\Dashboard\VerifPermintaanMasukController;
 
 /*
@@ -51,6 +52,8 @@ Route::group([
     Route::get('verif-permintaan-keluar', [VerifPermintaanMasukController::class, 'index'])->name('verif-masuk');
     Route::post('verif-permintaan-keluar/verif', [VerifPermintaanMasukController::class, 'verif'])->name('verif.update');
     Route::post('verif-permintaan-keluar/tolak', [VerifPermintaanMasukController::class, 'tolak'])->name('verif.tolak');
+    Route::get('perhitungan-min-max', [PerhitunganController::class, 'index'])->name('perhitungan.index');
+    Route::post('perhitungan-min-max', [PerhitunganController::class, 'store'])->name(name: 'perhitungan.store');
 });
 
 Route::group([

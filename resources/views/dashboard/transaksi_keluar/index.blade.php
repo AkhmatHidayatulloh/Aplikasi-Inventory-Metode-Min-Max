@@ -44,8 +44,8 @@
                                     <div class="form-group">
                                         <label>Pilih Customer</label>
                                         <div class="select2-purple">
-                                            <select class="form-control select2" name="id_customer"
-                                                data-placeholder="Pilih Customer" data-dropdown-css-class="select2-purple">
+                                            <select class="select2" name="id_customer" data-placeholder="Pilih Customer"
+                                                data-dropdown-css-class="select2-purple" style="width: 100%;">
                                                 @foreach ($customer as $item)
                                                     <option value="{{ $item->id }}">{{ $item->nama_customer }}</option>
                                                 @endforeach
