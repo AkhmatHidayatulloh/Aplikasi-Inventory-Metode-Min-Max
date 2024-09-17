@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -23,7 +24,28 @@ class SupplierController extends Controller
 
         // return view('users.index', compact('users'));
 
-        $supplier = Supplier::all();
+        $supplier = Supplier::orderBy('id', 'desc')->get();
+
+        if ($request->ajax()) {
+            return DataTables::of(source: $supplier)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    return '<button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#update" id="tombolubah" data-id="' . $data->id . '"
+                            data-nama="' . $data->nama_supplier . '"
+                            data-alamat="' . $data->alamat_supplier . '"
+                            data-kota="' . $data->kota_supplier . '"
+                            data-email="' . $data->email_supplier . '"
+                            data-nohp="' . $data->nohp_supplier . '">
+                            Update
+                            </button>
+                            <a href="' . route('supplier.destroy', $data->id) . '" class="btn btn-danger"
+                                    data-confirm-delete="true">Delete</a>
+                            ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
 
         return view('dashboard.supplier.index', compact('title', 'supplier'));
@@ -43,7 +65,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        
+
 
         // $request->validate([
         //     'nama_supplier' => 'required|string|max:255',
@@ -116,14 +138,14 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
         $idsupplier = Supplier::find($id);
 
         $hapus = $idsupplier->delete();
 
-        if($hapus){
+        if ($hapus) {
             toast('Data Berhasil Di Hapus', 'success');
-        }else{
+        } else {
             toast('Data Tidak Terhapus', 'error');
         }
 
@@ -148,7 +170,7 @@ class SupplierController extends Controller
             //alert()->question('QuestionAlert','Data Tidak Masuk.');
         } else {
             toast('Data Berhasil Di Update!', 'success');
-           // alert()->success('SuccessAlert','Data Berhasil Di Update!');
+            // alert()->success('SuccessAlert','Data Berhasil Di Update!');
         }
 
         return redirect()->back();

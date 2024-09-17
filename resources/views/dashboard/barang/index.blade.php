@@ -83,7 +83,7 @@
                                         <th>Ukuran Barang</th>
                                         <th>Bahan Barang</th>
                                         <th>Stok Barang</th>
-                                        <th>Action</th>
+                                        <th style="width: 150px;">Action</th>
                                     </tr>
                                 </thead>
 
@@ -95,7 +95,7 @@
                                         <th>Ukuran Barang</th>
                                         <th>Bahan Barang</th>
                                         <th>Stok Barang</th>
-                                        <th>Action</th>
+                                        <th style="width: 150px;">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -220,7 +220,9 @@
                 },
                 {
                     data: 'action',
-                    name: 'action'
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
                 },
             ]
         });

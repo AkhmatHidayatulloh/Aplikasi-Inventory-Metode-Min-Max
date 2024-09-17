@@ -72,121 +72,10 @@
                                         <th>Kota Supplier</th>
                                         <th>Email Supplier</th>
                                         <th>No HP Supplier</th>
-                                        <th>Action</th>
+                                        <th style="width: 150px;">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
-                                    @foreach ($supplier as $data)
-                                        <tr>
-                                            <td>{{ $no }}</td>
-                                            <td>{{ $data->nama_supplier }}</td>
-                                            <td>{{ $data->alamat_supplier }}</td>
-                                            <td>{{ $data->kota_supplier }}</td>
-                                            <td>{{ $data->email_supplier }}</td>
-                                            <td>{{ $data->nohp_supplier }}</td>
-                                            <td style="width: 180px">
-                                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#update" id="tombolubah" data-id="{{ $data->id }}"
-                                                    data-nama="{{ $data->nama_supplier }}"
-                                                    data-alamat="{{ $data->alamat_supplier }}"
-                                                    data-kota="{{ $data->kota_supplier }}"
-                                                    data-email="{{ $data->email_supplier }}"
-                                                    data-nohp="{{ $data->nohp_supplier }}">
-                                                    Update
-                                                </button>
-                                                <a href="{{ route('supplier.destroy', $data->id) }}" class="btn btn-danger"
-                                                    data-confirm-delete="true">Delete</a>
-                                            </td>
-                                        </tr>
-                                        @php
-                                            $no++;
-                                        @endphp
-                                    @endforeach
 
-
-
-
-                                    <div class="modal fade" id="update">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Modal Update Supplier</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="{{ route('supplier.ubah') }}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        <div class="card">
-                                                            <div class="card card-primary">
-                                                                <div class="card-header">
-                                                                    <h3 class="card-title">Form Update Supplier</h3>
-                                                                </div>
-                                                                <!-- /.card-header -->
-                                                                <!-- form start -->
-
-                                                                <div class="card-body">
-                                                                    <input type="hidden" id="id" name="id">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Nama
-                                                                            Supplier</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="nama" name="nama_supplier"
-                                                                            placeholder="Enter email">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Alamat
-                                                                            Supplier</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="alamat" name="alamat_supplier"
-                                                                            placeholder="Alamat Supplier">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Kota
-                                                                            Supplier</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="kota" name="kota_supplier"
-                                                                            placeholder="Kota Supplier">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Email
-                                                                            Supplier</label>
-                                                                        <input type="email" class="form-control"
-                                                                            id="email" name="email_supplier"
-                                                                            placeholder="Email Supplier">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">nohp
-                                                                            Supplier</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="nohp" name="nohp_supplier"
-                                                                            placeholder="No Hp Supplier">
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success">Update</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
-                                    <!-- /.modal -->
-
-
-                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
@@ -195,13 +84,83 @@
                                         <th>Kota Supplier</th>
                                         <th>Email Supplier</th>
                                         <th>No HP Supplier</th>
-                                        <th>Action</th>
+                                        <th style="width: 150px;">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
+
+                    <div class="modal fade" id="update">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Modal Update Supplier</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('supplier.ubah') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Form Update Supplier</h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <!-- form start -->
+
+                                                <div class="card-body">
+                                                    <input type="hidden" id="id" name="id">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Nama
+                                                            Supplier</label>
+                                                        <input type="text" class="form-control" id="nama"
+                                                            name="nama_supplier" placeholder="Enter email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Alamat
+                                                            Supplier</label>
+                                                        <input type="text" class="form-control" id="alamat"
+                                                            name="alamat_supplier" placeholder="Alamat Supplier">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Kota
+                                                            Supplier</label>
+                                                        <input type="text" class="form-control" id="kota"
+                                                            name="kota_supplier" placeholder="Kota Supplier">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Email
+                                                            Supplier</label>
+                                                        <input type="email" class="form-control" id="email"
+                                                            name="email_supplier" placeholder="Email Supplier">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">nohp
+                                                            Supplier</label>
+                                                        <input type="text" class="form-control" id="nohp"
+                                                            name="nohp_supplier" placeholder="No Hp Supplier">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
 
                 </div>
             </div>
@@ -224,9 +183,49 @@
             });
         });
 
-        $(function() {
-            $('#example2').DataTable();
+        $('#example2').DataTable({
+            ajax: "{!! route('supplier.index') !!}",
+            autoWidth: false,
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama_supplier',
+                    name: 'nama_supplier'
+                },
+                {
+                    data: 'alamat_supplier',
+                    name: 'alamat_supplier'
+                },
+                {
+                    data: 'kota_supplier',
+                    name: 'kota_supplier'
+                },
+                {
+                    data: 'email_supplier',
+                    name: 'email_supplier'
+                },
+                {
+                    data: 'nohp_supplier',
+                    name: 'nohp_supplier'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
         });
+
         $(document).on("click", "#tombolubah", function() {
 
             let id = $(this).data('id');

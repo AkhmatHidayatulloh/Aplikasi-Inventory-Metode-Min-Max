@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -12,7 +13,7 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Master Customer';
 
@@ -20,9 +21,30 @@ class CustomerController extends Controller
         $text = "Apakah Anda Yakin Mau Menghapus Data Customer ?";
         confirmDelete($judul, $text);
 
-        $customer = Customer::all();
+        $customer = Customer::orderBy('id', 'desc')->get();
 
-        return view('dashboard.customer.index', compact('title','customer'));
+        if ($request->ajax()) {
+            return DataTables::of(source: $customer)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    return '<button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#update" id="tombolubah" data-id="' . $data->id . '"
+                            data-nama="' . $data->nama_customer . '"
+                            data-alamat="' . $data->alamat_customer . '"
+                            data-kota="' . $data->kota_customer . '"
+                            data-email="' . $data->email_customer . '"
+                            data-nohp="' . $data->nohp_customer . '">
+                            Update
+                            </button>
+                            <a href="' . route('customer.destroy', $data->id) . '" class="btn btn-danger"
+                                    data-confirm-delete="true">Delete</a>
+                            ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('dashboard.customer.index', compact('title', 'customer'));
     }
 
     /**
@@ -88,15 +110,15 @@ class CustomerController extends Controller
 
         $hapus = $idcustomer->delete();
 
-        if($hapus){
+        if ($hapus) {
             toast('Data Berhasil Di Hapus', 'success');
-        }else{
+        } else {
             toast('Data Tidak Terhapus', 'error');
         }
 
         return redirect()->back();
     }
-    
+
     public function ubah(Request $request)
     {
         $update = DB::table('customers')
@@ -114,7 +136,7 @@ class CustomerController extends Controller
             //alert()->question('QuestionAlert','Data Tidak Masuk.');
         } else {
             toast('Data Berhasil Di Update!', 'success');
-           // alert()->success('SuccessAlert','Data Berhasil Di Update!');
+            // alert()->success('SuccessAlert','Data Berhasil Di Update!');
         }
 
         return redirect()->back();

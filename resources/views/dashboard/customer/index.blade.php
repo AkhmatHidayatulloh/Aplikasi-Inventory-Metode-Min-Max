@@ -72,117 +72,10 @@
                                         <th>Kota Customer</th>
                                         <th>Email Customer</th>
                                         <th>No HP Customer</th>
-                                        <th>Action</th>
+                                        <th style="width: 150px;">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
-                                    @foreach ($customer as $data)
-                                        <tr>
-                                            <td>{{ $no }}</td>
-                                            <td>{{ $data->nama_customer }}</td>
-                                            <td>{{ $data->alamat_customer }}</td>
-                                            <td>{{ $data->kota_customer }}</td>
-                                            <td>{{ $data->email_customer }}</td>
-                                            <td>{{ $data->nohp_customer }}</td>
-                                            <td style="width: 180px">
-                                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#update" id="tombolubah" data-id="{{ $data->id }}"
-                                                    data-nama="{{ $data->nama_customer }}"
-                                                    data-alamat="{{ $data->alamat_customer }}"
-                                                    data-kota="{{ $data->kota_customer }}"
-                                                    data-email="{{ $data->email_customer }}"
-                                                    data-nohp="{{ $data->nohp_customer }}">
-                                                    Update
-                                                </button>
-                                                <a href="{{ route('customer.destroy', $data->id) }}" class="btn btn-danger"
-                                                    data-confirm-delete="true">Delete</a>
-                                            </td>
-                                        </tr>
-                                        @php
-                                            $no++;
-                                        @endphp
-                                    @endforeach
 
-                                    <div class="modal fade" id="update">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Modal Update Customer</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="{{ route('customer.ubah') }}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        <div class="card">
-                                                            <div class="card card-primary">
-                                                                <div class="card-header">
-                                                                    <h3 class="card-title">Form Update Customer</h3>
-                                                                </div>
-                                                                <!-- /.card-header -->
-                                                                <!-- form start -->
-
-                                                                <div class="card-body">
-                                                                    <input type="hidden" id="id" name="id">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Nama
-                                                                            Customer</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="nama" name="nama_customer"
-                                                                            placeholder="Enter email">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Alamat
-                                                                            Customer</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="alamat" name="alamat_customer"
-                                                                            placeholder="Alamat customer">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Kota
-                                                                            Customer</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="kota" name="kota_customer"
-                                                                            placeholder="Kota customer">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Email
-                                                                            Customer</label>
-                                                                        <input type="email" class="form-control"
-                                                                            id="email" name="email_customer"
-                                                                            placeholder="Email customer">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">No hp
-                                                                            Customer</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="nohp" name="nohp_customer"
-                                                                            placeholder="No Hp customer">
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success">Update</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
-                                    <!-- /.modal -->
-
-                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
@@ -191,7 +84,7 @@
                                         <th>Kota Customer</th>
                                         <th>Email Customer</th>
                                         <th>No HP Customer</th>
-                                        <th>Action</th>
+                                        <th style="width: 150px;">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -199,6 +92,75 @@
                         <!-- /.card-body -->
                     </div>
 
+                    <div class="modal fade" id="update">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Modal Update Customer</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('customer.ubah') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Form Update Customer</h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <!-- form start -->
+
+                                                <div class="card-body">
+                                                    <input type="hidden" id="id" name="id">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Nama
+                                                            Customer</label>
+                                                        <input type="text" class="form-control" id="nama"
+                                                            name="nama_customer" placeholder="Enter email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Alamat
+                                                            Customer</label>
+                                                        <input type="text" class="form-control" id="alamat"
+                                                            name="alamat_customer" placeholder="Alamat customer">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Kota
+                                                            Customer</label>
+                                                        <input type="text" class="form-control" id="kota"
+                                                            name="kota_customer" placeholder="Kota customer">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Email
+                                                            Customer</label>
+                                                        <input type="email" class="form-control" id="email"
+                                                            name="email_customer" placeholder="Email customer">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">No hp
+                                                            Customer</label>
+                                                        <input type="text" class="form-control" id="nohp"
+                                                            name="nohp_customer" placeholder="No Hp customer">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
             </div>
     </section>
@@ -220,9 +182,49 @@
             });
         });
 
-        $(function() {
-            $('#example2').DataTable();
+        $('#example2').DataTable({
+            ajax: "{!! route('customer.index') !!}",
+            autoWidth: false,
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama_customer',
+                    name: 'nama_customer'
+                },
+                {
+                    data: 'alamat_customer',
+                    name: 'alamat_customer'
+                },
+                {
+                    data: 'kota_customer',
+                    name: 'kota_customer'
+                },
+                {
+                    data: 'email_customer',
+                    name: 'email_customer'
+                },
+                {
+                    data: 'nohp_customer',
+                    name: 'nohp_customer'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
         });
+
         $(document).on("click", "#tombolubah", function() {
 
             let id = $(this).data('id');
