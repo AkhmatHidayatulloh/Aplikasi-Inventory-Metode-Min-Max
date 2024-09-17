@@ -43,6 +43,7 @@ class PerhitunganController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+
         $title = 'Perhitungan Min Max';
         $barang = Barang::where('stok_barang', '>', 0)->get();
 

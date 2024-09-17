@@ -86,121 +86,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
-                                    @foreach ($barang as $data)
-                                        <tr>
-                                            <td>{{ $no }}</td>
-                                            <td>{{ $data->nama_barang }}</td>
-                                            <td>{{ $data->satuan_barang }}</td>
-                                            <td>{{ $data->ukuran_barang }}</td>
-                                            <td>{{ $data->bahan_barang }}</td>
-                                            <td>{{ $data->stok_barang }}</td>
-                                            <td style="width: 180px">
-                                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#update" id="tombolubah" data-id="{{ $data->id }}"
-                                                    data-nama="{{ $data->nama_barang }}"
-                                                    data-satuan="{{ $data->satuan_barang }}"
-                                                    data-ukuran="{{ $data->ukuran_barang }}"
-                                                    data-bahan="{{ $data->bahan_barang }}"
-                                                    data-stok="{{ $data->stok_barang }}">
-                                                    Update
-                                                </button>
-                                                <a href="{{ route('barang.destroy', $data->id) }}" class="btn btn-danger"
-                                                    data-confirm-delete="true">Delete</a>
 
-                                            </td>
-                                        </tr>
-                                        @php
-                                            $no++;
-                                        @endphp
-                                    @endforeach
-
-                                    <div class="modal fade" id="update">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Modal Update barang</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="{{ route('barang.ubah') }}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        <div class="card">
-                                                            <div class="card card-primary">
-                                                                <div class="card-header">
-                                                                    <h3 class="card-title">Form Update barang</h3>
-                                                                </div>
-                                                                <!-- /.card-header -->
-                                                                <!-- form start -->
-
-                                                                <div class="card-body">
-                                                                    <input type="hidden" id="id" name="id">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputbahan1">Nama
-                                                                            barang</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="nama" name="nama_barang"
-                                                                            placeholder="Nama bahan"
-                                                                            value="{{ old('nama_barang') }}" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">satuan
-                                                                            barang</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="satuan" name="satuan_barang"
-                                                                            placeholder="Satuan barang"
-                                                                            value="{{ old('satuan_barang') }}" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">ukuran
-                                                                            barang</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="ukuran" name="ukuran_barang"
-                                                                            placeholder="Ukuran barang"
-                                                                            value="{{ old('ukuran_barang') }}" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">bahan
-                                                                            barang</label>
-                                                                        <input type="bahan" class="form-control"
-                                                                            id="bahan" name="bahan_barang"
-                                                                            placeholder="Bahan barang"
-                                                                            value="{{ old('bahan_barang') }}" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">stok
-                                                                            barang</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="stok" name="stok_barang"
-                                                                            placeholder="Stok barang"
-                                                                            value="{{ old('stok_barang') }}" required>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success">Update</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
-                                    <!-- /.modal -->
-
-
-                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
@@ -217,6 +103,80 @@
                         <!-- /.card-body -->
                     </div>
 
+                    <div class="modal fade" id="update">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Modal Update barang</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('barang.ubah') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Form Update barang</h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <!-- form start -->
+
+                                                <div class="card-body">
+                                                    <input type="hidden" id="id" name="id">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputbahan1">Nama
+                                                            barang</label>
+                                                        <input type="text" class="form-control" id="nama"
+                                                            name="nama_barang" placeholder="Nama bahan"
+                                                            value="{{ old('nama_barang') }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">satuan
+                                                            barang</label>
+                                                        <input type="text" class="form-control" id="satuan"
+                                                            name="satuan_barang" placeholder="Satuan barang"
+                                                            value="{{ old('satuan_barang') }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">ukuran
+                                                            barang</label>
+                                                        <input type="text" class="form-control" id="ukuran"
+                                                            name="ukuran_barang" placeholder="Ukuran barang"
+                                                            value="{{ old('ukuran_barang') }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">bahan
+                                                            barang</label>
+                                                        <input type="bahan" class="form-control" id="bahan"
+                                                            name="bahan_barang" placeholder="Bahan barang"
+                                                            value="{{ old('bahan_barang') }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">stok
+                                                            barang</label>
+                                                        <input type="text" class="form-control" id="stok"
+                                                            name="stok_barang" placeholder="Stok barang"
+                                                            value="{{ old('stok_barang') }}" required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+
                 </div>
             </div>
     </section>
@@ -224,8 +184,45 @@
 
 @section('script')
     <script>
-        $(function() {
-            $('#example2').DataTable();
+        $('#example2').DataTable({
+            ajax: "{!! route('barang.index') !!}",
+            autoWidth: false,
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama_barang',
+                    name: 'nama_barang'
+                },
+                {
+                    data: 'satuan_barang',
+                    name: 'satuan_barang'
+                },
+                {
+                    data: 'ukuran_barang',
+                    name: 'ukuran_barang'
+                },
+                {
+                    data: 'bahan_barang',
+                    name: 'bahan_barang'
+                },
+                {
+                    data: 'stok_barang',
+                    name: 'stok_barang'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                },
+            ]
         });
 
         $(document).ready(function() {

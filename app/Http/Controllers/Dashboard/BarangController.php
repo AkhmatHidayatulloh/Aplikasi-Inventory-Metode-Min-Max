@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class BarangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Master Barang';
 
@@ -19,6 +20,27 @@ class BarangController extends Controller
         confirmDelete($judul, $text);
 
         $barang = Barang::orderBy('id', 'desc')->get();
+
+        if ($request->ajax()) {
+            return DataTables::of(source: $barang)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    return '<button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#update" id="tombolubah" data-id="' . $row->id  . '"
+                            data-nama="' . $row->nama_barang . '"
+                            data-satuan="' . $row->satuan_barang . '"
+                            data-ukuran="' . $row->ukuran_barang . '"
+                            data-bahan="' . $row->bahan_barang . '"
+                            data-stok="' . $row->stok_barang . '">
+                            Update
+                            </button>
+                            <a href="' . route('barang.destroy', $row->id) . '" class="btn btn-danger"
+                            data-confirm-delete="true">Delete</a>
+                            ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
         return view('dashboard.barang.index', compact('title', 'barang'));
     }

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('id_supplier')->constrained('suppliers')->onDelete('cascade');
             $table->foreignId('id_barang')->constrained('barang')->onDelete('cascade');
             $table->date('tanggal_masuk');
-            $table->string('bulan_tahun', 7);
             $table->integer('jumlah_barang_masuk');
             $table->integer('stok_awal_masuk');
             $table->integer('stok_akhir_masuk');

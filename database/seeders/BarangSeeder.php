@@ -18,7 +18,7 @@ class BarangSeeder extends Seeder
             'satuan_barang' => 'meter',
             'ukuran_barang' => '0.50',
             'bahan_barang' => 'HDPE',
-            'stok_barang' => 105,
+            'stok_barang' => 1000,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

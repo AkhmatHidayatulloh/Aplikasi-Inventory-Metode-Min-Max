@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $table->foreignId('id_barang')->constrained('barang')->onDelete('cascade');
             $table->date('tgl_perhitungan');
+            $table->string('bulan_tahun', 7);
             $table->integer('leadtime');
             $table->double('permintaan_rata');
             $table->integer('permintaan_max');
