@@ -13,6 +13,7 @@ class PerhitunganMinMax extends Model
         'id_user',
         'id_barang',
         'tgl_perhitungan',
+        'bulan_tahun',
         'leadtime',
         'permintaan_rata',
         'permintaan_max',

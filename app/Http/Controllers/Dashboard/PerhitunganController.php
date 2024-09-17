@@ -3,16 +3,46 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use App\Models\PerhitunganMinMax;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Yajra\DataTables\DataTables;
 
 class PerhitunganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $data_perhitungan = DB::table('perhitungan_min_maxes as a')
+            ->join('users as b', 'a.id_user', '=', 'b.id')
+            ->join('barang as c', 'a.id_barang', '=', 'c.id')
+            ->select(
+                'a.id',
+                'b.name',
+                'c.nama_barang',
+                'a.tgl_perhitungan',
+                'a.bulan_tahun',
+                'a.leadtime',
+                'a.permintaan_rata',
+                'a.permintaan_max',
+                'a.safety_stock',
+                'a.min',
+                'a.max',
+                'a.order_quantity',
+                'a.created_at',
+                'a.updated_at'
+            )
+            ->get();
+
+        if ($request->ajax()) {
+            return DataTables::of($data_perhitungan)
+                ->addIndexColumn()
+                ->make(true);
+        }
         $title = 'Perhitungan Min Max';
         $barang = Barang::where('stok_barang', '>', 0)->get();
 
@@ -30,17 +60,19 @@ class PerhitunganController extends Controller
                 SUM(jumlah_barang_keluar) as jumlah,
                 AVG(jumlah_barang_keluar) as rata,
                 MAX(jumlah_barang_keluar) as max,
-                nama_barang')
+                nama_barang,
+                id_barang')
             ->join('barang', 'barang.id', '=', 'id_barang')
             ->whereRaw("DATE_FORMAT(tanggal_keluar, '%m %Y') = '$tglformat'")
             ->where('status', 'berhasil')
             ->where('id_barang', $id_barang)
-            ->groupBy('nama_barang')
+            ->groupBy('nama_barang', 'id_barang')
             ->first();
         $safety = ($result->max - ceil($result->rata)) * $leadtime;
         $max = 2 * (ceil($result->rata) * $leadtime) + $safety;
         $min = (ceil($result->rata) * $leadtime) + $safety;
         $order = $max - $min;
+        $iduser = Auth::user()->id;
 
         $data = [
             'permintaan_rata' => ceil($result->rata),
@@ -48,21 +80,40 @@ class PerhitunganController extends Controller
             'leadtime' => $leadtime,
             'max' => $max,
             'min' => $min,
-            'safetystock' => $safety,
+            'safety_stock' => $safety,
             'order' => $order,
             'nama_barang' => $result->nama_barang
         ];
-        // dd(
-        //     $id_barang,
-        //     ceil($result->rata),
-        //     $safety,
-        //     $max,
-        //     $min,
-        //     $order,
-        //     $data
-        // );
-        Alert::success('Perhitungan Berhasil', 'Hasil Sudah Dapat Dilihat');
 
+        $create = PerhitunganMinMax::updateOrCreate(
+            [
+                'id_barang' => $id_barang,  // Kondisi pencarian
+                'bulan_tahun' => $tglformat
+            ],
+            [
+                'id_user' => $iduser,
+                'id_barang' => $result->id_barang,
+                'tgl_perhitungan' => $tgl_perhitungan,
+                'bulan_tahun' => $tglformat,
+                'leadtime' => $leadtime,
+                'permintaan_rata' => ceil($result->rata),
+                'permintaan_max' => $result->max,
+                'safety_stock' => $safety,
+                'min' => $min,
+                'max' => $max,
+                'order_quantity' => $order,
+            ] // Data yang akan di-update atau dibuat
+        );
+
+        if (!$create) {
+            Alert::danger('Perhitungan Gagal', 'Coba Ulangi Lagi');
+        } else {
+            Alert::success('Perhitungan Berhasil', 'Hasil Sudah Dapat Dilihat');
+        }
+        // dd(
+        //     $iduser,
+        //     $result->id_barang
+        // );
         return redirect()->back()->with('hasil', $data);
     }
 }

@@ -88,7 +88,7 @@
                                                 <tr>
                                                     <td>{{ session('hasil')['min'] ?? '0' }}</td>
                                                     <td>{{ session('hasil')['max'] ?? '0' }}</td>
-                                                    <td>{{ session('hasil')['safetystock'] ?? '0' }}</td>
+                                                    <td>{{ session('hasil')['safety_stock'] ?? '0' }}</td>
                                                 </tr>
                                             </tbody>
                                             <thead class="bg-olive">
@@ -116,41 +116,36 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="tabel-perhitungan" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Nama User</th>
+                                        <th>Nama Barang</th>
                                         <th>Tanggal Perhitungan</th>
-                                        <th>Alamat Supplier</th>
-                                        <th>Kota Supplier</th>
-                                        <th>Email Supplier</th>
-                                        <th>No HP Supplier</th>
-                                        <th>Action</th>
+                                        <th>Lead Time</th>
+                                        <th>Permintaan Rata-rata</th>
+                                        <th>Permintaan Maximal</th>
+                                        <th>Safety Stock</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                        <th>Order Quantity</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
 
-                                    <tr>
-                                        <td>{{ $no }}</td>
-
-                                    </tr>
-                                    @php
-                                        $no++;
-                                    @endphp
-
-                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Supplier</th>
-                                        <th>Alamat Supplier</th>
-                                        <th>Kota Supplier</th>
-                                        <th>Email Supplier</th>
-                                        <th>No HP Supplier</th>
-                                        <th>Action</th>
+                                        <th>Nama User</th>
+                                        <th>Nama Barang</th>
+                                        <th>Tanggal Perhitungan</th>
+                                        <th>Lead Time</th>
+                                        <th>Permintaan Rata-rata</th>
+                                        <th>Permintaan Maximal</th>
+                                        <th>Safety Stock</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                        <th>Order Quantity</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -166,13 +161,70 @@
 
 @section('script')
     <script>
-        $(function() {
-            $('#example2').DataTable();
-        });
-
         $('#barang').select2({
             placeholder: "Pilih sebuah opsi",
             allowClear: true
+        });
+
+        $(function() {
+
+            //Initialize Datatables Elements
+            $('#tabel-perhitungan').DataTable({
+                ajax: "{!! route('perhitungan.index') !!}",
+                autoWidth: false,
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                lengthChange: false,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'nama_barang',
+                        name: 'nama_barang'
+                    },
+                    {
+                        data: 'tgl_perhitungan',
+                        name: 'tgl_perhitungan'
+                    },
+                    {
+                        data: 'leadtime',
+                        name: 'leadtime'
+                    },
+                    {
+                        data: 'permintaan_rata',
+                        name: 'permintaan_rata'
+                    },
+                    {
+                        data: 'permintaan_max',
+                        name: 'permintaan_max'
+                    },
+                    {
+                        data: 'safety_stock',
+                        name: 'safety_stock'
+                    },
+                    {
+                        data: 'min',
+                        name: 'min'
+                    },
+                    {
+                        data: 'max',
+                        name: 'max'
+                    },
+                    {
+                        data: 'order_quantity',
+                        name: 'order_quantity'
+                    },
+                ]
+            });
         });
     </script>
 @endsection

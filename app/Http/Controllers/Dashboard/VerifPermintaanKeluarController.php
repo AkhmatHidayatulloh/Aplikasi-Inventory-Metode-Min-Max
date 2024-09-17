@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\TransaksiBarangKeluar;
 
-class VerifPermintaanMasukController extends Controller
+class VerifPermintaanKeluarController extends Controller
 {
     public function index()
     {
