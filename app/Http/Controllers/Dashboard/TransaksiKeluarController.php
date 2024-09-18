@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Barang;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\TransaksiBarangKeluar;
 
 class TransaksiKeluarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
         $title = 'Transaksi Barang keluar';
@@ -38,7 +39,23 @@ class TransaksiKeluarController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('dashboard.transaksi_keluar.index', compact('title', 'customer', 'barang', 'transaksikeluar', 'countbarang'));
+        if ($request->ajax()) {
+            return DataTables::of($transaksikeluar)
+                ->addIndexColumn()
+                ->addColumn('status', function ($data) {
+                    if ($data->status == 'berhasil') {
+                        return '<small class="badge badge-success">' . $data->status . '</small>';
+                    } elseif ($data->status == 'ditolak') {
+                        return '<small class="badge badge-danger">' . $data->status . '</small>';
+                    } else {
+                        return '<small class="badge badge-warning">' . $data->status . '</small>';
+                    }
+                })
+                ->rawColumns(['status'])
+                ->make(true);
+        }
+
+        return view('dashboard.transaksi_keluar.index', compact('title', 'customer', 'barang',  'countbarang'));
     }
 
     public function store(Request $request)

@@ -108,39 +108,7 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
-                                    @foreach ($transaksikeluar as $data)
-                                        <tr>
-                                            <td>{{ $no }}</td>
-                                            <td>{{ $data->nama_customer }}</td>
-                                            <td>{{ $data->nama_barang }}</td>
-                                            <td>{{ $data->tanggal_keluar }}</td>
-                                            <td>{{ $data->jumlah_barang_keluar }}</td>
-                                            <td>{{ $data->stok_awal_keluar }}</td>
-                                            <td>{{ $data->stok_akhir_keluar }}</td>
-                                            @if ($data->status == 'berhasil')
-                                                <td>
-                                                    <small class="badge badge-success">{{ $data->status }}</small>
-                                                </td>
-                                            @elseif ($data->status == 'ditolak')
-                                                <td>
-                                                    <small class="badge badge-danger">{{ $data->status }}</small>
-                                                </td>
-                                            @else
-                                                <td>
-                                                    <small class="badge badge-warning">{{ $data->status }}</small>
-                                                </td>
-                                            @endif
-                                        </tr>
-                                        @php
-                                            $no++;
-                                        @endphp
-                                    @endforeach
 
-                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
@@ -172,6 +140,51 @@
 
         });
 
+        $('#example2').DataTable({
+            ajax: "{!! route('transaksi_keluar.index') !!}",
+            autoWidth: false,
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama_customer',
+                    name: 'nama_customer'
+                },
+                {
+                    data: 'nama_barang',
+                    name: 'nama_barang'
+                },
+                {
+                    data: 'tanggal_keluar',
+                    name: 'tanggal_keluar'
+                },
+                {
+                    data: 'jumlah_barang_keluar',
+                    name: 'jumlah_barang_keluar'
+                },
+                {
+                    data: 'stok_awal_keluar',
+                    name: 'stok_awal_keluar'
+                },
+                {
+                    data: 'stok_akhir_keluar',
+                    name: 'stok_akhir_keluar',
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+
+                },
+            ]
+        });
 
 
         $(document).ready(function() {

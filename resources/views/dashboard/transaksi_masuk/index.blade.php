@@ -89,26 +89,7 @@
                                         <th>Stok Akhir Masuk</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
-                                    @foreach ($transaksimasuk as $data)
-                                        <tr>
-                                            <td>{{ $no }}</td>
-                                            <td>{{ $data->nama_supplier }}</td>
-                                            <td>{{ $data->nama_barang }}</td>
-                                            <td>{{ $data->tanggal_masuk }}</td>
-                                            <td>{{ $data->jumlah_barang_masuk }}</td>
-                                            <td>{{ $data->stok_awal_masuk }}</td>
-                                            <td>{{ $data->stok_akhir_masuk }}</td>
-                                        </tr>
-                                        @php
-                                            $no++;
-                                        @endphp
-                                    @endforeach
 
-                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
@@ -133,62 +114,50 @@
 @section('script')
     <script>
         $(function() {
-            $('#example2').DataTable();
 
             $('.select2').select2();
 
         });
 
-
-
-
-        // //Initialize Select2 Elements
-        // $('.select2bs4').select2({
-        //     theme: 'bootstrap4'
-        // })
-
-        // $(document).ready(function() {
-        //     // Hanya memperbolehkan input angka dan membatasi maksimal 14 karakter pada input nomor HP
-        //     $("#nohp").on('input', function() {
-        //         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 14);
-        //     });
-
-        //     // Alternatif lain untuk mencegah input non-numeric pada keypress event
-        //     $("#nohp").on('keypress', function(event) {
-        //         if (!/^[0-9]$/.test(event.key) || $(this).val().length >= 14) {
-        //             event.preventDefault();
-        //         }
-        //     });
-        // });
-
-
-        // $(document).on("click", "#tombolubah", function() {
-
-        //     let id = $(this).data('id');
-        //     let nama = $(this).data('nama');
-        //     let alamat = $(this).data('alamat');
-        //     let kota = $(this).data('kota');
-        //     let nohp = $(this).data('nohp');
-        //     let email = $(this).data('email');
-
-        //     $(".modal-body #id").val(id);
-        //     $(".modal-body #nama").val(nama);
-        //     $(".modal-body #alamat").val(alamat);
-        //     $(".modal-body #kota").val(kota);
-        //     $(".modal-body #nohp").val(nohp);
-        //     $(".modal-body #email").val(email);
-
-        //     $(".modal-body #nohp").on('input', function() {
-        //         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 14);
-        //     });
-
-        //     // Alternatif lain untuk mencegah input non-numeric pada keypress event
-        //     $(".modal-body #nohp").on('keypress', function(event) {
-        //         if (!/^[0-9]$/.test(event.key) || $(this).val().length >= 14) {
-        //             event.preventDefault();
-        //         }
-        //     });
-        // });
-        // Hanya memperbolehkan input angka pada input nomor HP
+        $('#example2').DataTable({
+            ajax: "{!! route('transaksi_masuk.index') !!}",
+            autoWidth: false,
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama_supplier',
+                    name: 'nama_supplier'
+                },
+                {
+                    data: 'nama_barang',
+                    name: 'nama_barang'
+                },
+                {
+                    data: 'tanggal_masuk',
+                    name: 'tanggal_masuk'
+                },
+                {
+                    data: 'jumlah_barang_masuk',
+                    name: 'jumlah_barang_masuk'
+                },
+                {
+                    data: 'stok_awal_masuk',
+                    name: 'stok_awal_masuk'
+                },
+                {
+                    data: 'stok_akhir_masuk',
+                    name: 'stok_akhir_masuk',
+                },
+            ]
+        });
     </script>
 @endsection

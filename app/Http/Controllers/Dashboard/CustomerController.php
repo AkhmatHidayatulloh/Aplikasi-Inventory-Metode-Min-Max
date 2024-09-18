@@ -44,7 +44,7 @@ class CustomerController extends Controller
                 ->make(true);
         }
 
-        return view('dashboard.customer.index', compact('title', 'customer'));
+        return view('dashboard.customer.index', compact('title'));
     }
 
     /**

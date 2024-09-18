@@ -36,6 +36,7 @@ class PerhitunganController extends Controller
                 'a.created_at',
                 'a.updated_at'
             )
+            ->orderBy('id', 'desc')
             ->get();
 
         if ($request->ajax()) {

@@ -42,7 +42,7 @@ class BarangController extends Controller
                 ->make(true);
         }
 
-        return view('dashboard.barang.index', compact('title', 'barang'));
+        return view('dashboard.barang.index', compact('title'));
     }
 
 

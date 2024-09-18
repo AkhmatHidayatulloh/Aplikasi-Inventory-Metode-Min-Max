@@ -48,7 +48,7 @@ class SupplierController extends Controller
         }
 
 
-        return view('dashboard.supplier.index', compact('title', 'supplier'));
+        return view('dashboard.supplier.index', compact('title'));
     }
 
     /**

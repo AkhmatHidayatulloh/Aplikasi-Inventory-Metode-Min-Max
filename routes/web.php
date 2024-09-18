@@ -49,7 +49,7 @@ Route::group([
     Route::resource('barang', 'BarangController');
     Route::post('admin/barang/ubah', [BarangController::class, 'ubah'])->name('barang.ubah');
 
-    Route::get('verif-permintaan-keluar', [VerifPermintaanKeluarController::class, 'index'])->name('verif-masuk');
+    Route::get('verif-permintaan-keluar', [VerifPermintaanKeluarController::class, 'index'])->name('verif.index');
     Route::post('verif-permintaan-keluar/verif', [VerifPermintaanKeluarController::class, 'verif'])->name('verif.update');
     Route::post('verif-permintaan-keluar/tolak', [VerifPermintaanKeluarController::class, 'tolak'])->name('verif.tolak');
     Route::get('perhitungan-min-max', [PerhitunganController::class, 'index'])->name('perhitungan.index');

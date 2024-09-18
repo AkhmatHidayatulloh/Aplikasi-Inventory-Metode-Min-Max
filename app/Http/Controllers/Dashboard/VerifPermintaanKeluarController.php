@@ -5,22 +5,17 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Barang;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\TransaksiBarangKeluar;
 
 class VerifPermintaanKeluarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
         $title = 'Vrifikasi Barang keluar';
-
-        // $customer = Customer::all();
-
-        // $barang = Barang::where('stok_barang', '>', 0)->get();
-
-        // $countbarang = Barang::count('id');
 
         $transaksikeluar = DB::table('transaksi_barang_keluar as a')
             ->join('customers as b', 'a.id_customer', '=', 'b.id')
@@ -37,6 +32,39 @@ class VerifPermintaanKeluarController extends Controller
             )
             ->orderBy('id', 'desc')
             ->get();
+
+        if ($request->ajax()) {
+            return DataTables::of($transaksikeluar)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    $disableCondition = ($data->status == 'berhasil' || $data->status == 'ditolak') ? 'disabled' : '';
+
+                    return '
+                        <button type="button" id="tombolverif" class="btn btn-success"
+                            data-toggle="modal" data-target="#modalVerif"
+                            data-id="' . $data->id . '"
+                            data-jumlah="' . $data->jumlah_barang_keluar . '" ' . $disableCondition . '>
+                            Verifikasi
+                        </button>
+
+                        <button type="button" id="tomboltolak" class="btn btn-danger"
+                            data-toggle="modal" data-target="#modalTolak"
+                            data-id="' . $data->id . '" ' . $disableCondition . '>
+                            Tolak
+                        </button>';
+                })
+                ->addColumn('status', function ($data) {
+                    if ($data->status == 'berhasil') {
+                        return '<small class="badge badge-success">' . $data->status . '</small>';
+                    } elseif ($data->status == 'ditolak') {
+                        return '<small class="badge badge-danger">' . $data->status . '</small>';
+                    } else {
+                        return '<small class="badge badge-warning">' . $data->status . '</small>';
+                    }
+                })
+                ->rawColumns(['status', 'action']) // Pastikan kolom action dan status bisa dirender dengan HTML
+                ->make(true);
+        }
 
 
 
