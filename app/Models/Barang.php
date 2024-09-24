@@ -9,7 +9,7 @@ class Barang extends Model
 {
     protected $table = "barang";
 
-    protected $fillable =[
+    protected $fillable = [
         'nama_barang',
         'satuan_barang',
         'ukuran_barang',
@@ -18,4 +18,10 @@ class Barang extends Model
     ];
 
     use HasFactory;
+
+
+    public function perhitungan()
+    {
+        return $this->hasOne(PerhitunganMinMax::class, 'id_barang');
+    }
 }

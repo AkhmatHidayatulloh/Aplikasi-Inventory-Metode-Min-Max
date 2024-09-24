@@ -86,8 +86,9 @@
                                 <div class="form-group">
                                     <label>Pilih Barang</label>
                                     <div class="select2-purple">
-                                        <select class="form-control" name="id_barang" id="barang" data-placeholder="Pilih Barang"
-                                            data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                        <select class="form-control" name="id_barang" id="barang"
+                                            data-placeholder="Pilih Barang" data-dropdown-css-class="select2-purple"
+                                            style="width: 100%;">
                                             @foreach ($namabarang as $item)
                                                 <option value="{{ $item->nama_barang }}">{{ $item->nama_barang }}</option>
                                             @endforeach
@@ -124,7 +125,7 @@
             $('.select2').select2();
 
         });
-        
+
         toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -160,15 +161,12 @@
             var validOptionsMasuk = nama_barang_masuk;
             var validOptionsKeluar = nama_barang_keluar;
 
-            console.log(validOptionsMasuk);
-            console.log(validOptionsKeluar);
-
 
 
             // Membuat grafik Highcharts
             var chartMasuk = Highcharts.chart('chartmasuk', {
                 chart: {
-                    type: 'column'
+                    type: 'area'
                 },
                 title: {
                     text: 'Chart Transaksi Barang Masuk ' + judul
@@ -191,7 +189,7 @@
             // Membuat grafik Highcharts
             var chartKeluar = Highcharts.chart('chartkeluar', {
                 chart: {
-                    type: 'column'
+                    type: 'area'
                 },
                 title: {
                     text: 'Chart Transaksi Barang Keluar ' + judul
@@ -224,7 +222,7 @@
                     10)); // Pastikan ini adalah array angka
                 bulanmasuk = [...new Set(selectedDataMasuk.map(item => item.bulan))];
 
-                //chart keluar                
+                //chart keluar
                 const selectedDatakeluar = chartDatakeluar.filter(item => item.nama_barang ===
                     selectedValue);
                 jumlahkeluar = selectedDatakeluar.map(item => parseInt(item.jumlah,
@@ -237,9 +235,9 @@
                         text: 'Chart Transaksi Masuk Barang ' + judul
                     });
                     chartMasuk.series[0].setData(jumlahmasuk,
-                    true); // 'true' untuk mengaktifkan animasi pembaruan
+                        true); // 'true' untuk mengaktifkan animasi pembaruan
                     chartMasuk.xAxis[0].setCategories(bulanmasuk,
-                    true); // 'true' untuk mengaktifkan animasi pembaruan
+                        true); // 'true' untuk mengaktifkan animasi pembaruan
                     chartMasuk.redraw(); // Memastikan grafik di-red raw
 
                 } else {
@@ -251,9 +249,9 @@
                         text: 'Chart Transaksi Keluar Barang ' + judul
                     });
                     chartKeluar.series[0].setData(jumlahkeluar,
-                    true); // 'true' untuk mengaktifkan animasi pembaruan
+                        true); // 'true' untuk mengaktifkan animasi pembaruan
                     chartKeluar.xAxis[0].setCategories(bulankeluar,
-                    true); // 'true' untuk mengaktifkan animasi pembaruan
+                        true); // 'true' untuk mengaktifkan animasi pembaruan
                     chartKeluar.redraw(); // Memastikan grafik di-red raw
 
                 } else {

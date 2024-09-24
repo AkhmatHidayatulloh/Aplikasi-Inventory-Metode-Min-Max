@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @hasSection('title')
@@ -11,6 +12,7 @@
         <title>Aplikasi Min Max</title>
     @endif
 
+    <link rel="icon" href="{{ asset('admin/dist/img/AdminLTELogo.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -64,7 +66,7 @@
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
+                height="400" width="400">
         </div>
 
         <!-- Navbar -->
@@ -84,106 +86,15 @@
             <ul class="ml-auto navbar-nav">
                 <!-- Navbar Search -->
 
-
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
-                        role="button">
-                        <i class="fas fa-th-large"></i>
-                    </a>
-                </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
+                    <a class="nav-link" data-toggle="dropdown" href="#" id="notificationDropdown">
                         <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
+                        <span class="badge badge-warning navbar-badge" id="notificationCount">0</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="notificationMenu">
+                        <span class="dropdown-item dropdown-header">Notifications</span>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                        <div id="notificationItems"></div>
                     </div>
                 </li>
 
@@ -336,6 +247,56 @@
         @yield('script')
     @endif
 
+    <script>
+        console.log("jQuery version:", $().jquery);
+        $(document).ready(function() {
+
+            function markAsRead(id) {
+                $.ajax({
+                    url: `./notifications/read/${id}`,
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function() {
+                        loadNotifications();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                        console.log("Status:", status);
+                        console.log("Response:", xhr.responseText);
+                    }
+                });
+            }
+
+            function loadNotifications() {
+                $.ajax({
+                    url: './notifications',
+                    method: 'GET',
+                    success: function(response) {
+                        let notificationCount = response.length;
+                        $('#notificationCount').text(notificationCount);
+                        $('#notificationItems').empty();
+
+                        response.forEach(notification => {
+                            $('#notificationItems').append(`
+                        <a href="#" class="dropdown-item" onclick="markAsRead(${notification.id})">
+                            <i class="mr-2 fas fa-exclamation-circle"></i> ${notification.title}
+                            <span class="float-right text-sm text-muted">Just now</span>
+                        </a>
+                    `);
+                            $('#notificationItems').append(
+                                '<div class="dropdown-divider"></div>');
+                        });
+                    }
+                });
+            }
+
+            // Load notifications every 30 seconds
+            loadNotifications();
+            setInterval(loadNotifications, 30000);
+        });
+    </script>
 </body>
 
 </html>

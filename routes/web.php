@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\BarangController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SupplierController;
 use App\Http\Controllers\Dashboard\PerhitunganController;
+use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Dashboard\VerifPermintaanKeluarController;
 
 /*
@@ -66,7 +67,12 @@ Route::group([
 
     Route::resource('transaksi_masuk', 'TransaksiMasukController');
     Route::resource('transaksi_keluar', 'TransaksiKeluarController');
+    Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notif');
+    Route::post('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notif-baca');
 });
+
+
+
 
 // Route::group([
 //     'prefix' => 'admin',
