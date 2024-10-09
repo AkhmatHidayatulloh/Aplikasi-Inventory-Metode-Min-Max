@@ -248,26 +248,7 @@
     @endif
 
     <script>
-        console.log("jQuery version:", $().jquery);
         $(document).ready(function() {
-
-            function markAsRead(id) {
-                $.ajax({
-                    url: `./notifications/read/${id}`,
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function() {
-                        loadNotifications();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error:", error);
-                        console.log("Status:", status);
-                        console.log("Response:", xhr.responseText);
-                    }
-                });
-            }
 
             function loadNotifications() {
                 $.ajax({
@@ -280,11 +261,13 @@
 
                         response.forEach(notification => {
                             $('#notificationItems').append(`
-                        <a href="#" class="dropdown-item" onclick="markAsRead(${notification.id})">
-                            <i class="mr-2 fas fa-exclamation-circle"></i> ${notification.title}
-                            <span class="float-right text-sm text-muted">Just now</span>
-                        </a>
-                    `);
+                    <a href="./notifications/read/${notification.id}" class="dropdown-item" >
+                        <i class="mr-2 fas fa-exclamation-circle"></i>
+                        <strong>${notification.title}</strong>
+                        <p class="mb-1">${notification.message}</p>
+                        <span class="float-right text-sm text-muted">${notification.waktu}</span>
+                    </a>
+                `);
                             $('#notificationItems').append(
                                 '<div class="dropdown-divider"></div>');
                         });
@@ -295,6 +278,52 @@
             // Load notifications every 30 seconds
             loadNotifications();
             setInterval(loadNotifications, 30000);
+
+            function loadNotificationCount() {
+                $.ajax({
+                    url: './notifications/count', // Pastikan rute ini sesuai dengan endpoint di backend
+                    method: 'GET',
+                    success: function(response) {
+
+                        if (response.count == 0) {
+                            $('#notificationBadge').text('');
+                        } else {
+                            // Asumsikan response.count berisi jumlah notifikasi
+                            $('#notificationBadge').text(response.count);
+                        }
+
+                    },
+                    error: function(xhr) {
+                        console.error('Gagal mengambil jumlah notifikasi:', xhr);
+                    }
+                });
+            }
+
+            loadNotificationCount();
+            setInterval(loadNotificationCount, 30000);
+
+            function loadNotificationCountPending() {
+                $.ajax({
+                    url: './notifications-pending/count', // Pastikan rute ini sesuai dengan endpoint di backend
+                    method: 'GET',
+                    success: function(response) {
+
+                        if (response.count == 0) {
+                            $('#notificationBadgePending').text('');
+                        } else {
+                            // Asumsikan response.count berisi jumlah notifikasi
+                            $('#notificationBadgePending').text(response.count);
+                        }
+
+                    },
+                    error: function(xhr) {
+                        console.error('Gagal mengambil jumlah notifikasi:', xhr);
+                    }
+                });
+            }
+
+            loadNotificationCountPending();
+            setInterval(loadNotificationCountPending, 30000);
         });
     </script>
 </body>

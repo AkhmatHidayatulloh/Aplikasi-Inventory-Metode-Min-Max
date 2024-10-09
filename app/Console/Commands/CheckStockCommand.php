@@ -33,7 +33,7 @@ class CheckStockCommand extends Command
 
         $perhitungan = PerhitunganMinMax::with(relations: 'barang')
             ->whereRaw("DATE_FORMAT(tgl_perhitungan, '%m %Y') = '01 2024'")
-            ->get(); // Mengambil produk beserta setting-nya
+            ->get();
 
 
         foreach ($perhitungan as $hasil) {
@@ -52,8 +52,8 @@ class CheckStockCommand extends Command
                     [
                         'id_barang' => $id_barang,
                         'bulan_tahun_notif' => '01 2024',
-                        'title' => 'Restock Needed',
-                        'message' => "The stock of {$hasil->barang->nama_barang} is below the minimum level of {$hasil->min}.",
+                        'title' => "Segera Restock {$hasil->barang->nama_barang}",
+                        'message' => "Stok Barang {$hasil->barang->nama_barang} Dibawah Batas Minimum Dari {$hasil->min}.",
                     ]
                 );
             }

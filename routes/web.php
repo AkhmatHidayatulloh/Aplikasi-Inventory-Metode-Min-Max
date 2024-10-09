@@ -55,6 +55,12 @@ Route::group([
     Route::post('verif-permintaan-keluar/tolak', [VerifPermintaanKeluarController::class, 'tolak'])->name('verif.tolak');
     Route::get('perhitungan-min-max', [PerhitunganController::class, 'index'])->name('perhitungan.index');
     Route::post('perhitungan-min-max', [PerhitunganController::class, 'store'])->name(name: 'perhitungan.store');
+    Route::get('/notif', [NotificationController::class, 'index'])->name('notif.index');
+    Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notif');
+    Route::post('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notif-baca');
+    Route::get('/notifications/count', [NotificationController::class, 'count'])->name('notif-count');
+    Route::get('/notifications-pending/count', [NotificationController::class, 'countPending'])->name('pending-count');
+    Route::post('baca-notif', [NotificationController::class, 'markAsRead'])->name(name: 'baca.notif');
 });
 
 Route::group([
@@ -67,8 +73,6 @@ Route::group([
 
     Route::resource('transaksi_masuk', 'TransaksiMasukController');
     Route::resource('transaksi_keluar', 'TransaksiKeluarController');
-    Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notif');
-    Route::post('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notif-baca');
 });
 
 
