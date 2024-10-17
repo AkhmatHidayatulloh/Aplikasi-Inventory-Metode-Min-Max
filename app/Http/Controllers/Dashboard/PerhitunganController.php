@@ -53,69 +53,84 @@ class PerhitunganController extends Controller
 
     public function store(Request $request)
     {
+
         $id_barang = $request->id_barang;
-        $tgl_perhitungan = Carbon::createFromFormat('Y-m-d', $request->tgl_perhitungan);
-        $tglformat = date_format($tgl_perhitungan, 'm Y');
-        $leadtime = 30;
+        // $tgl_perhitungan = Carbon::createFromFormat('Y-m-d', $request->tgl_perhitungan);
+        // $tglformat = date_format($tgl_perhitungan, 'm Y');
+
+        $tglformat = $request->tgl_perhitungan;
+
         $result = DB::table('transaksi_barang_keluar')
             ->selectRaw('
-                SUM(jumlah_barang_keluar) as jumlah,
-                AVG(jumlah_barang_keluar) as rata,
-                MAX(jumlah_barang_keluar) as max,
-                nama_barang,
-                id_barang')
+                    SUM(jumlah_barang_keluar) as jumlah,
+                    AVG(jumlah_barang_keluar) as rata,
+                    MAX(jumlah_barang_keluar) as max,
+                    nama_barang,
+                    id_barang,
+                    date_format(`tanggal_keluar`, "%m %Y") as bulan')
             ->join('barang', 'barang.id', '=', 'id_barang')
-            ->whereRaw("DATE_FORMAT(tanggal_keluar, '%m %Y') = '$tglformat'")
+            ->whereRaw("DATE_FORMAT(tanggal_keluar, '%Y') = '$tglformat'")
             ->where('status', 'berhasil')
             ->where('id_barang', $id_barang)
-            ->groupBy('nama_barang', 'id_barang')
-            ->first();
-        $safety = ($result->max - ceil($result->rata)) * $leadtime;
-        $max = 2 * (ceil($result->rata) * $leadtime) + $safety;
-        $min = (ceil($result->rata) * $leadtime) + $safety;
-        $order = $max - $min;
-        $iduser = Auth::user()->id;
+            ->groupBy('nama_barang', 'id_barang', 'bulan')
+            ->get();
 
-        $data = [
-            'permintaan_rata' => ceil($result->rata),
-            'permintaan_max' => $result->max,
-            'leadtime' => $leadtime,
-            'max' => $max,
-            'min' => $min,
-            'safety_stock' => $safety,
-            'order' => $order,
-            'nama_barang' => $result->nama_barang
-        ];
+        $test = $result->map(function ($result) {
 
-        $create = PerhitunganMinMax::updateOrCreate(
-            [
-                'id_barang' => $id_barang,  // Kondisi pencarian
-                'bulan_tahun' => $tglformat
-            ],
-            [
-                'id_user' => $iduser,
-                'id_barang' => $result->id_barang,
-                'tgl_perhitungan' => $tgl_perhitungan,
-                'bulan_tahun' => $tglformat,
-                'leadtime' => $leadtime,
-                'permintaan_rata' => ceil($result->rata),
-                'permintaan_max' => $result->max,
-                'safety_stock' => $safety,
-                'min' => $min,
-                'max' => $max,
-                'order_quantity' => $order,
-            ] // Data yang akan di-update atau dibuat
-        );
+            $parts = explode(' ', $result->bulan);
+            $month = $parts[0];
+            $year = $parts[1];
+            // Membuat objek Carbon
+            $date = Carbon::createFromFormat('m Y', $month . ' ' . $year);
 
-        if (!$create) {
+            // Menambah 1 tahun
+            $tgl1 = $date->addYear();
+
+            $tgl_perhitungan = $tgl1;
+            $tglformat = $tgl1->format('m Y');
+            $leadtime = 7;
+            $safety = ($result->max - ceil($result->rata)) * $leadtime;
+            $max = 2 * (ceil($result->rata) * $leadtime) + $safety;
+            $min = (ceil($result->rata) * $leadtime) + $safety;
+            $order = $max - $min;
+            $iduser = Auth::user()->id;
+
+            // $data = [
+            //     'permintaan_rata' => ceil($result->rata),
+            //     'permintaan_max' => $result->max,
+            //     'leadtime' => $leadtime,
+            //     'max' => $max,
+            //     'min' => $min,
+            //     'safety_stock' => $safety,
+            //     'order' => $order,
+            //     'nama_barang' => $result->nama_barang
+            // ];
+
+            $create = PerhitunganMinMax::Create(
+                [
+                    'id_user' => $iduser,
+                    'id_barang' => $result->id_barang,
+                    'tgl_perhitungan' => $tgl_perhitungan,
+                    'bulan_tahun' => $tglformat,
+                    'leadtime' => $leadtime,
+                    'permintaan_rata' => ceil($result->rata),
+                    'permintaan_max' => $result->max,
+                    'safety_stock' => $safety,
+                    'min' => $min,
+                    'max' => $max,
+                    'order_quantity' => $order,
+                ] // Data yang akan di-update atau dibuat
+            );
+        });
+
+
+
+        if (!$result) {
             Alert::danger('Perhitungan Gagal', 'Coba Ulangi Lagi');
         } else {
             Alert::success('Perhitungan Berhasil', 'Hasil Sudah Dapat Dilihat');
         }
-        // dd(
-        //     $iduser,
-        //     $result->id_barang
-        // );
-        return redirect()->back()->with('hasil', $data);
+
+        return redirect()->back()->with('hasil');
     }
 }

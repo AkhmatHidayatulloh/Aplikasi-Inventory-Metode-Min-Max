@@ -16,8 +16,8 @@ class CekRole
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-         // Cek apakah pengguna sudah login
-         if (!Auth::check()) {
+        // Cek apakah pengguna sudah login
+        if (!Auth::check()) {
             return redirect('login');
         }
 
@@ -28,7 +28,7 @@ class CekRole
         // );
 
         // Cek apakah pengguna memiliki salah satu peran yang diizinkan
-        if (!in_array($user->role, $roles)) {
+        if (!in_array($user->role,  $roles)) {
             // Jika tidak, kembalikan response atau redirect sesuai kebutuhan
             return redirect('unauthorized');
         }

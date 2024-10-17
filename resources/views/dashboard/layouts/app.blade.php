@@ -256,7 +256,12 @@
                     method: 'GET',
                     success: function(response) {
                         let notificationCount = response.length;
-                        $('#notificationCount').text(notificationCount);
+                        // Cek jika jumlah notifikasi 0, sembunyikan badge
+                        if (notificationCount === 0) {
+                            $('#notificationCount').hide();
+                        } else {
+                            $('#notificationCount').text(notificationCount).show();
+                        }
                         $('#notificationItems').empty();
 
                         response.forEach(notification => {

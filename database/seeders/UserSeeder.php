@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
@@ -41,7 +41,5 @@ class UserSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-
-
     }
 }

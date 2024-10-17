@@ -19,7 +19,10 @@
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="supplier" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        @if (auth()->user()->role == 'super visor' || auth()->user()->role == 'admin')
+                            <a href="supplier" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        @endif
                     </div>
                 </div>
                 <!-- ./col -->
@@ -34,7 +37,10 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="customer" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        @if (auth()->user()->role == 'super visor' || auth()->user()->role == 'admin')
+                            <a href="customer" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        @endif
                     </div>
                 </div>
                 <!-- ./col -->
@@ -49,7 +55,10 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="barang" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        @if (auth()->user()->role == 'super visor' || auth()->user()->role == 'admin')
+                            <a href="barang" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        @endif
                     </div>
                 </div>
                 <!-- ./col -->
@@ -57,14 +66,17 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{ $pending }}</h3>
 
-                            <p>Unique Visitors</p>
+                            <p>Verifikasi Barang Keluar</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        @if (auth()->user()->role == 'super visor' || auth()->user()->role == 'admin')
+                            <a href="/admin/verif-permintaan-keluar" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        @endif
                     </div>
                 </div>
                 <!-- ./col -->

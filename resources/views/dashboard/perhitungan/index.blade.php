@@ -9,7 +9,7 @@
                 <div class="col-md-12">
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <!-- general form elements -->
                             <form action="{{ route('perhitungan.store') }}" method="POST">
                                 @csrf
@@ -36,11 +36,27 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="exampleInputPassword1">Tanggal Perhitungan</label>
                                                 <input type="date" class="form-control" id=""
                                                     name="tgl_perhitungan" placeholder="" required>
+                                            </div> --}}
+
+                                            <!-- Date -->
+                                            <div class="form-group">
+                                                <label>Pilih Tahun Perhitungan:</label>
+                                                <div class="input-group date" id="reservationdate"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="tgl_perhitungan"
+                                                        class="form-control datetimepicker-input"
+                                                        data-target="#reservationdate" />
+                                                    <div class="input-group-append" data-target="#reservationdate"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                         </div>
                                         <!-- /.card-body -->
 
@@ -53,7 +69,7 @@
                             </form>
                         </div>
 
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="card">
                                 <div class="card card-primary">
 
@@ -105,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
 
@@ -167,6 +183,12 @@
         });
 
         $(function() {
+            //Date picker
+            $('#reservationdate').datetimepicker({
+                format: 'YYYY',
+                viewMode: 'years',
+                minViewMode: 'years'
+            });
 
             //Initialize Datatables Elements
             $('#tabel-perhitungan').DataTable({

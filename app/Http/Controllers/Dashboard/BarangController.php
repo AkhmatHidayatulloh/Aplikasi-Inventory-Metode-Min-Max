@@ -165,7 +165,7 @@ class BarangController extends Controller
                 'satuan_barang' => 'required|string|max:100',
                 'ukuran_barang' => 'required|numeric',
                 'bahan_barang'  => 'required|string|max:100',
-                'stok_barang' => 'required|numeric|max:5'
+                'stok_barang' => 'required|numeric'
             ]);
 
             // Check if validation fails

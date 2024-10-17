@@ -37,10 +37,8 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li
-                    class="nav-item {{ Request::is('admin/dashboard') ? 'menu-open' : '' }} {{ Request::is('admin/verif-permintaan-keluar') ? 'menu-open' : '' }} {{ Request::is('admin/notif') ? 'menu-open' : '' }}">
-                    <a href="#"
-                        class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }} {{ Request::is('admin/verif-permintaan-keluar') ? 'active' : '' }} {{ Request::is('admin/notif') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('admin/dashboard') ? 'menu-open' : '' }} ">
+                    <a href="#" class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }} ">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -54,27 +52,7 @@
                                 <p>Dashboard v1</p>
                             </a>
                         </li>
-                        @if (auth()->user()->role == 'super visor' || auth()->user()->role == 'admin')
-                            <li class="nav-item">
-                                <a href="verif-permintaan-keluar"
-                                    class="nav-link {{ Request::is('admin/verif-permintaan-keluar') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>
-                                        Verifikasi Permintaan
-                                        <span id="notificationBadgePending" class="badge badge-warning right"></span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="notif" class="nav-link {{ Request::is('admin/notif') ? 'active' : '' }}">
-                                    <i class="nav-icon far fa-circle"></i>
-                                    <p>
-                                        Notifikasi Restock
-                                        <span id="notificationBadge" class="badge badge-info right"></span>
-                                    </p>
-                                </a>
-                            </li>
-                        @endif
+
                     </ul>
                 </li>
 
@@ -144,9 +122,10 @@
                 </li>
 
                 @if (auth()->user()->role == 'super visor' || auth()->user()->role == 'admin')
-                    <li class="nav-header">Perhitungan & Laporan</li>
+                    <li class="nav-header">Menu</li>
                     <li class="nav-item">
-                        <a href="perhitungan-min-max" class="nav-link">
+                        <a href="perhitungan-min-max"
+                            class="nav-link {{ Request::is('admin/perhitungan-min-max') ? 'active' : '' }}">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Perhitungan
@@ -154,10 +133,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/gallery.html" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
+                        <a href="verif-permintaan-keluar"
+                            class="nav-link {{ Request::is('admin/verif-permintaan-keluar') ? 'active' : '' }}">
+                            <i class="far fa-check-circle nav-icon"></i>
                             <p>
-                                Gallery
+                                Verifikasi Permintaan
+                                <span id="notificationBadgePending" class="badge badge-warning right"></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notif" class="nav-link {{ Request::is('admin/notif') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-bell "></i>
+                            <p>
+                                Notifikasi Restock
+                                <span id="notificationBadge" class="badge badge-info right"></span>
                             </p>
                         </a>
                     </li>
