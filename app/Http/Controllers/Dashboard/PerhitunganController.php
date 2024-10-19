@@ -75,7 +75,7 @@ class PerhitunganController extends Controller
             ->groupBy('nama_barang', 'id_barang', 'bulan')
             ->get();
 
-        $test = $result->map(function ($result) {
+        $perhitungan = $result->map(function ($result) {
 
             $parts = explode(' ', $result->bulan);
             $month = $parts[0];
@@ -125,7 +125,7 @@ class PerhitunganController extends Controller
 
 
 
-        if (!$result) {
+        if (!$perhitungan) {
             Alert::danger('Perhitungan Gagal', 'Coba Ulangi Lagi');
         } else {
             Alert::success('Perhitungan Berhasil', 'Hasil Sudah Dapat Dilihat');

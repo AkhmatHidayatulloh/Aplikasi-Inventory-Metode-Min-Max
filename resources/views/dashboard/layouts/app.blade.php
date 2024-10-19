@@ -242,6 +242,8 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+
     <!-- additional script -->
     @hasSection('script')
         @yield('script')

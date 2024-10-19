@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\BarangController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SupplierController;
 use App\Http\Controllers\Dashboard\PerhitunganController;
+use App\Http\Controllers\dashboard\laporanTransaksiKeluar;
 use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Dashboard\VerifPermintaanKeluarController;
 
@@ -61,6 +62,7 @@ Route::group([
     Route::get('/notifications/count', [NotificationController::class, 'count'])->name('notif-count');
     Route::get('/notifications-pending/count', [NotificationController::class, 'countPending'])->name('pending-count');
     Route::post('baca-notif', [NotificationController::class, 'markAsRead'])->name(name: 'baca.notif');
+    Route::get('/laporan-keluar', [laporanTransaksiKeluar::class, 'index'])->name('index-laporan-keluar');
 });
 
 Route::group([
