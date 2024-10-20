@@ -122,10 +122,10 @@
                 </li>
 
                 <li
-                    class="nav-item {{ Request::is('admin/laporan-masuk') ? 'menu-open' : '' }} {{ Request::is('admin/laporan-keluar') ? 'menu-open' : '' }} ">
+                    class="nav-item {{ Request::is('admin/laporan-masuk') ? 'menu-open' : '' }} {{ Request::is('admin/laporan-keluar') ? 'menu-open' : '' }} {{ Request::is('admin/laporan-perhitungan') ? 'menu-open' : '' }} ">
                     <a href="#"
-                        class="nav-link {{ Request::is('admin/laporan-masuk') ? 'active' : '' }} {{ Request::is('admin/laporan-keluar') ? 'active' : '' }} ">
-                        <i class="nav-icon fas fa-table"></i>
+                        class="nav-link {{ Request::is('admin/laporan-masuk') ? 'active' : '' }} {{ Request::is('admin/laporan-keluar') ? 'active' : '' }} {{ Request::is('admin/laporan-perhitungan') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                             Laporan
                             <i class="fas fa-angle-left right"></i>
@@ -144,6 +144,13 @@
                                 class="nav-link {{ Request::is('admin/laporan-keluar') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Transaksi Barang Keluar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="laporan-perhitungan"
+                                class="nav-link {{ Request::is('admin/laporan-perhitungan') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Perhitungan Min Max</p>
                             </a>
                         </li>
                     </ul>

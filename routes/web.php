@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Dashboard\BarangController;
 use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\dashboard\laporanPerhitungan;
 use App\Http\Controllers\Dashboard\SupplierController;
 use App\Http\Controllers\Dashboard\PerhitunganController;
 use App\Http\Controllers\dashboard\laporanTransaksiKeluar;
@@ -65,6 +66,7 @@ Route::group([
     Route::post('baca-notif', [NotificationController::class, 'markAsRead'])->name(name: 'baca.notif');
     Route::get('/laporan-keluar', [laporanTransaksiKeluar::class, 'index'])->name('index-laporan-keluar');
     Route::get('/laporan-masuk', [laporanTransaksiMasuk::class, 'index'])->name('index-laporan-masuk');
+    Route::get('/laporan-perhitungan', [laporanPerhitungan::class, 'index'])->name('index-laporan-perhitungan');
 });
 
 Route::group([
