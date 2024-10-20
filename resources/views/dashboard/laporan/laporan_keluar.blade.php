@@ -31,6 +31,7 @@
                                         <select class="select2" name="id_barang" id="barang"
                                             data-placeholder="Pilih Barang" data-dropdown-css-class="select2-purple"
                                             style="width: 100%;">
+                                            <option value=" ">Semua Data</option>
                                             @foreach ($barang as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama_barang }}</option>
                                             @endforeach
@@ -44,6 +45,7 @@
                                         <select class="select2" name="id_customer" id="customer"
                                             data-placeholder="Pilih Customer" data-dropdown-css-class="select2-purple"
                                             style="width: 100%;">
+                                            <option value=" ">Semua Data</option>
                                             @foreach ($customer as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama_customer }}</option>
                                             @endforeach

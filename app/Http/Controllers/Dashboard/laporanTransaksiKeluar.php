@@ -55,6 +55,6 @@ class laporanTransaksiKeluar extends Controller
         }
 
         //dd($transaksikeluar);
-        return view('dashboard.laporan.index', compact('title', 'barang', 'customer'));
+        return view('dashboard.laporan.laporan_keluar', compact('title', 'barang', 'customer'));
     }
 }
